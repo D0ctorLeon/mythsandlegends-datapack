@@ -11,7 +11,7 @@ Welcome to the MythsAndLegends-Datapack repository. This repository hosts the of
 We encourage contributions to the MythsAndLegends-Datapack! You can contribute in several ways:
 
 - **Fork the repository**: Create your own fork of this repository to modify and enhance the Datapack.
-- **Create merge requests**: Submit your changes via merge requests for review and potential inclusion in the official Datapack.
+- **Create merge requests**: Submit your changes via merge requests for review and potential inclusion in the official Datapack. Please update the `SpawnListMythsAndLegends.xlsx` file if you want to merge something or if something is wrong.
 - **Open issues**: Report bugs, suggest improvements, or share other feedback by opening an issue.
 
 ## Usage Guidelines
