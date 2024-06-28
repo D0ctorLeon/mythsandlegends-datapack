@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [
+  ],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zamazenta-1",
+      "pokemon": "zamazenta",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:taiga",
+          "minecraft:windswept_forest"
+        ],
+        "key_item": "rusted_shield"
+      }
+    },
+    {
+      "id": "mythsandlegends-zamazenta-2",
+      "pokemon": "zamazenta",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_plateau",
+          "#cobblemon:is_savanna",
+          "#cobblemon:is_highlands"
+        ],
+        "key_item": "rusted_shield"
+      }
+    }
+  ]
+}

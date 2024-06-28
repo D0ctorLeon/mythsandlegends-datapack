@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-rayquaza-1",
+      "pokemon": "rayquaza",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "terralith:skylands_autumn",
+          "terralith:skylands_spring",
+          "terralith:skylands_summer",
+          "terralith:skylands_winter",
+          "#cobblemon:is_jungle",
+          "#minecraft:is_jungle"
+        ],
+        "key_item": "jade_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-rayquaza-2",
+      "pokemon": "rayquaza",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_sky",
+          "#cobblemon:is_highlands",
+          "minecraft:end_highlands",
+          "#minecraft:is_end",
+          "#cobblemon:is_jungle",
+          "#minecraft:is_jungle"
+        ],
+        "key_item": "jade_orb"
+      }
+    }
+  ]
+}

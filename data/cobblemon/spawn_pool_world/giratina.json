@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-giratina-1",
+      "pokemon": "Giratina",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:soul_sand_valley",
+          "minecraft:the_end"
+        ],
+        "key_item": "griseous_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-giratina-2",
+      "pokemon": "Giratina",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_nether",
+          "#cobblemon:is_spooky",
+          "#cobblemon:is_nether_wasteland"
+        ],
+        "key_item": "griseous_orb"
+      }
+    }
+  ]
+}

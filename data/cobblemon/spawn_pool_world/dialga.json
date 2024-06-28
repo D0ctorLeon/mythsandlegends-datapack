@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-dialga-1",
+      "pokemon": "dialga",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:mountain_edge",
+          "minecraft:stony_peaks"
+        ],
+        "key_item": "adamant_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-dialga-2",
+      "pokemon": "dialga",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_highlands",
+          "#cobblemon:is_peak",
+          "#cobblemon:is_mountain"
+        ],
+        "key_item": "adamant_orb"
+      }
+    }
+  ]
+}

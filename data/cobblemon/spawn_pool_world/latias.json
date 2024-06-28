@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-latias-1",
+      "pokemon": "latias",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "terralith:mirage_isles",
+          "minecraft:flower_forest",
+          "minecraft:birch_forest"
+        ],
+        "key_item": "eon_ticket"
+      }
+    },
+    {
+      "id": "mythsandlegends-latias-2",
+      "pokemon": "latias",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_coast",
+          "#cobblemon:is_temperate",
+          "#cobblemon:is_beach"
+        ],
+        "key_item": "eon_ticket"
+      }
+    }
+  ]
+}

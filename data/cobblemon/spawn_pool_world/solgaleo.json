@@ -1,0 +1,29 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-solgaleo-1",
+      "pokemon": "solgaleo",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70-80",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:savanna_plateau",
+          "minecraft:desert_hills",
+          "minecraft:badlands_plateau"
+        ],
+        "minLight": 8,
+        "maxLight": 15,
+        "moonPhase": 7,
+        "timeRange": "day",
+        "key_item": "sun_flute"
+      }
+    }
+  ]
+}

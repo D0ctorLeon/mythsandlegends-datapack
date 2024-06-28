@@ -1,0 +1,55 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-articuno-1",
+      "pokemon": "articuno",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:frozen_ocean",
+          "minecraft:frozen_peaks",
+          "minecraft:frozen_river",
+          "minecraft:snowy_beach",
+          "minecraft:snowy_plains",
+          "minecraft:snowy_slopes",
+          "minecraft:snowy_taiga"
+        ],
+        "key_item": "tidal_bell",
+        "ice_stone_requirement": "3"
+      }
+    },
+    {
+      "id": "mythsandlegends-articuno-2",
+      "pokemon": "articuno",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_cold",
+          "#cobblemon:is_freezing",
+          "#cobblemon:is_snowy_forest",
+          "#cobblemon:is_glacial",
+          "#cobblemon:is_frozen_ocean"
+        ],
+        "key_item": "tidal_bell",
+        "ice_stone_requirement": "3"
+      }
+    }
+  ]
+}

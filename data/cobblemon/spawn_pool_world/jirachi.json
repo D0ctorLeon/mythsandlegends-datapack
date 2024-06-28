@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-jirachi-1",
+      "pokemon": "jirachi",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "5-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:mushroom_fields",
+          "minecraft:windswept_gravelly_hills"
+        ],
+        "key_item": "bonus_disk"
+      }
+    },
+    {
+      "id": "mythsandlegends-jirachi-2",
+      "pokemon": "jirachi",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "5-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_magical",
+          "#cobblemon:is_sparse"
+        ],
+        "key_item": "bonus_disk"
+      }
+    }
+  ]
+}

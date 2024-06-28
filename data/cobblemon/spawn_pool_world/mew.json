@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-mew-1",
+      "pokemon": "mew",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_jungle",
+          "minecraft:bamboo_jungle",
+          "minecraft:jungle"
+        ],
+        "key_item": "old_sea_map"
+      }
+    },
+    {
+      "id": "mythsandlegends-mew-2",
+      "pokemon": "mew",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_jungle",
+          "#cobblemon:is_lush",
+          "#cobblemon:is_bamboo"
+        ],
+        "key_item": "old_sea_map"
+      }
+    }
+  ]
+}

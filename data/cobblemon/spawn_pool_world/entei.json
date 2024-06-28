@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-entei-1",
+      "pokemon": "entei",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:badlands",
+          "minecraft:eroded_badlands",
+          "minecraft:nether_wastes",
+          "minecraft:savanna",
+          "minecraft:windswept_hills",
+          "minecraft:windswept_forest"
+        ],
+        "key_item": "clear_bell",
+        "fire_stone_requirement": "3"
+      }
+    },
+    {
+      "id": "mythsandlegends-entei-2",
+      "pokemon": "entei",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_volcanic",
+          "#cobblemon:is_thermal",
+          "#cobblemon:is_badlands"
+        ],
+        "key_item": "clear_bell",
+        "fire_stone_requirement": "3"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-yveltal-1",
+      "pokemon": "yveltal",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:dark_forest",
+          "minecraft:swamp"
+        ],
+        "key_item": "cocoon_of_destruction"
+      }
+    },
+    {
+      "id": "mythsandlegends-yveltal-2",
+      "pokemon": "yveltal",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_spooky",
+          "#cobblemon:is_tundra"
+        ],
+        "key_item": "cocoon_of_destruction"
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-celebi-1",
+      "pokemon": "celebi",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:birch_forest",
+          "minecraft:dark_forest",
+          "minecraft:flower_forest",
+          "minecraft:forest",
+          "minecraft:jungle",
+          "minecraft:mangrove_swamp",
+          "minecraft:meadow",
+          "minecraft:old_growth_birch_forest",
+          "minecraft:old_growth_pine_taiga",
+          "minecraft:old_growth_spruce_taiga",
+          "minecraft:swamp"
+        ],
+        "key_item": "gs_ball"
+      }
+    },
+    {
+      "id": "mythsandlegends-celebi-2",
+      "pokemon": "celebi",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "30-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_forest",
+          "#cobblemon:is_magical",
+          "#cobblemon:is_lush",
+          "#minecraft:cherry_grove",
+          "#cobblemon:is_spring"
+        ],
+        "key_item": "gs_ball"
+      }
+    }
+  ]
+}

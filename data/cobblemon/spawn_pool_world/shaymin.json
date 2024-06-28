@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-shaymin-1",
+      "pokemon": "shaymin",
+      "presets": [
+        "flowers"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:sunflower_plains",
+          "minecraft:flower_forest",
+          "minecraft:flower_forest",
+          "minecraft:meadow",
+          "terralith:blooming_plateau",
+          "terralith:blooming_valley",
+          "terralith:lavender_valley",
+          "terralith:sakura_grove",
+          "terralith:sakura_valley",
+          "#cobblemon:is_floral",
+          "#cobblemon:is_grassland"
+        ],
+        "key_item": "oaks_letter"
+      }
+    },
+    {
+      "id": "mythsandlegends-shaymin-2",
+      "pokemon": "shaymin",
+      "presets": [
+        "flowers"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_lush"
+        ],
+        "key_item": "oaks_letter"
+      }
+    }
+  ]
+}

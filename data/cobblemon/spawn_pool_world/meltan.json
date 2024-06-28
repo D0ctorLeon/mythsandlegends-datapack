@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-meltan-1",
+      "pokemon": "meltan",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "20-40",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:taiga",
+          "minecraft:snowy_taiga",
+          "minecraft:mountains"
+        ],
+        "neededNearbyBlocks": [
+          "minecraft:iron_block"
+        ],
+        "key_item": "mystery_box"
+      }
+    }
+  ]
+}

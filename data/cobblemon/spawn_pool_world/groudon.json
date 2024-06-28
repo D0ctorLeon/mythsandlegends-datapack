@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-groudon-1",
+      "pokemon": "groudon",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "45-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_volcanic",
+          "minecraft:badlands",
+          "minecraft:desert",
+          "minecraft:eroded_badlands"
+        ],
+        "key_item": "red_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-groudon-2",
+      "pokemon": "groudon",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "45-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_volcanic",
+          "#cobblemon:is_desert",
+          "#cobblemon:is_arid",
+          "#cobblemon:is_thermal"
+        ],
+        "key_item": "red_orb"
+      }
+    }
+  ]
+}

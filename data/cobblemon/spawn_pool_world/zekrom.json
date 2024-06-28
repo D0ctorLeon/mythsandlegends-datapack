@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zekrom-1",
+      "pokemon": "zekrom",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:swamp",
+          "minecraft:dark_forest",
+          "minecraft:roofed_forest"
+        ],
+        "minLight": 0,
+        "maxLight": 7,
+        "timeRange": "night",
+        "key_item": "dark_stone"
+      }
+    }
+  ]
+}

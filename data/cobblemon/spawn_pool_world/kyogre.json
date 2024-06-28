@@ -1,0 +1,50 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-kyogre-1",
+      "pokemon": "kyogre",
+      "presets": [
+        "freshwater",
+        "underwater"
+      ],
+      "type": "pokemon",
+      "context": "submerged",
+      "bucket": "ultra-rare",
+      "level": "45-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_ocean",
+          "minecraft:deep_cold_ocean",
+          "minecraft:deep_frozen_ocean",
+          "minecraft:deep_ocean",
+          "minecraft:ocean"
+        ],
+        "key_item": "blue_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-kyogre-2",
+      "pokemon": "kyogre",
+      "presets": [
+        "freshwater",
+        "underwater"
+      ],
+      "type": "pokemon",
+      "context": "submerged",
+      "bucket": "ultra-rare",
+      "level": "45-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_deep_ocean",
+          "#cobblemon:is_ocean"
+        ],
+        "key_item": "blue_orb"
+      }
+    }
+  ]
+}

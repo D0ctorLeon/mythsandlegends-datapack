@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-raikou-1",
+      "pokemon": "raikou",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:plains",
+          "minecraft:savanna",
+          "minecraft:savanna_plateau"
+        ],
+        "key_item": "clear_bell",
+        "thunder_stone_requirement": "3"
+      }
+    },
+    {
+      "id": "mythsandlegends-raikou-2",
+      "pokemon": "raikou",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_plains",
+          "#cobblemon:is_grassland",
+          "#cobblemon:is_arid"
+        ],
+        "key_item": "clear_bell",
+        "thunder_stone_requirement": "3"
+      }
+    }
+  ]
+}

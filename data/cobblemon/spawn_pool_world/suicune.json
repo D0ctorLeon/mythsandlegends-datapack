@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-suicune-1",
+      "pokemon": "suicune",
+      "presets": [
+        "river"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:frozen_river",
+          "minecraft:river"
+        ],
+        "key_item": "clear_bell",
+        "water_stone_requirement": "3"
+      }
+    },
+    {
+      "id": "mythsandlegends-suicune-2",
+      "pokemon": "suicune",
+      "presets": [
+        "river"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_freshwater",
+          "#cobblemon:is_cold_ocean"
+        ],
+        "key_item": "clear_bell",
+        "water_stone_requirement": "3"
+      }
+    }
+  ]
+}

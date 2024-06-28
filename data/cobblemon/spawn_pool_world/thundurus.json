@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-thundurus-1",
+      "pokemon": "thundurus",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-70",
+      "weight": 0.1,
+      "condition": {
+        "isThundering": true,
+        "biomes": [
+          "minecraft:plains",
+          "minecraft:mountains",
+          "minecraft:badlands"
+        ],
+        "key_item": "reveal_glass"
+      }
+    }
+  ]
+}

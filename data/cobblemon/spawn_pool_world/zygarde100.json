@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zygarde-1",
+      "pokemon": "zygarde",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:birch_forest",
+          "minecraft:forest",
+          "minecraft:jungle",
+          "minecraft:mangrove_swamp",
+          "minecraft:swamp"
+        ],
+        "key_item": "zygarde_cube"
+      }
+    },
+    {
+      "id": "mythsandlegends-zygarde-2",
+      "pokemon": "zygarde",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_forest",
+          "#cobblemon:is_cave",
+          "#cobblemon:is_swamp"
+        ],
+        "key_item": "zygarde_cube"
+      }
+    }
+  ]
+}

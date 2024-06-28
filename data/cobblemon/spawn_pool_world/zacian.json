@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [
+  ],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zacian-1",
+      "pokemon": "zacian",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:flower_forest",
+          "minecraft:meadow"
+        ],
+        "key_item": "rusted_sword"
+      }
+    },
+    {
+      "id": "mythsandlegends-zacian-2",
+      "pokemon": "zacian",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_magical",
+          "#cobblemon:is_forest",
+          "#cobblemon:is_highlands"
+        ],
+        "key_item": "rusted_sword"
+      }
+    }
+  ]
+}

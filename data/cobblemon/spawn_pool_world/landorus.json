@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-landorus-1",
+      "pokemon": "landorus",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50-70",
+      "weight": 0.1,
+      "condition": {
+        "isThundering": true,
+        "biomes": [
+          "minecraft:savanna",
+          "minecraft:sunflower_plains",
+          "minecraft:desert"
+        ],
+        "key_item": "reveal_glass"
+      }
+    }
+  ]
+}

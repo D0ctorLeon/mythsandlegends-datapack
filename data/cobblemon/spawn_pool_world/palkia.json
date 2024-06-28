@@ -1,0 +1,55 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [
+  ],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-palkia-1",
+      "pokemon": "Palkia",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "terralith:skylands_winter",
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "lustrous_orb"
+      }
+    },
+    {
+      "id": "mythsandlegends-palkia-2",
+      "pokemon": "Palkia",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "47-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "terralith:skylands_winter",
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "#minecraft:is_end",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "lustrous_orb"
+      }
+    }
+  ]
+}
