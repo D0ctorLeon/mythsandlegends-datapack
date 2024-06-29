@@ -1,6 +1,7 @@
 import os
 import json
 import xmlrpc.client
+import ssl
 
 def fetch_json_files():
     """Fetch all JSON files in the specified directory."""
@@ -44,7 +45,11 @@ def update_dokuwiki_page(pokemon, content):
     url = os.getenv('DOKUWIKI_API_URL')
     user = os.getenv('DOKUWIKI_USER')
     password = os.getenv('DOKUWIKI_PASSWORD')
-    server = xmlrpc.client.ServerProxy(url)
+
+    # Disable SSL verification
+    context = ssl._create_unverified_context()
+    server = xmlrpc.client.ServerProxy(url, context=context)
+    
     token = server.dokuwiki.login(user, password)
     page = f'pokedex:{pokemon.lower()}'
     summary = 'Automated update from GitHub repository'
