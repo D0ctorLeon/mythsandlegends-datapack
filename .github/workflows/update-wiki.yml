@@ -1,0 +1,31 @@
+name: Update DokuWiki
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Check out the repository code
+
+    - name: Set up Python
+      uses: actions/setup-python@v2  # Set up Python environment
+      with:
+        python-version: '3.x'  # Use Python 3.x
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip  # Upgrade pip
+        pip install requests  # Install the requests library
+
+    - name: Run update script
+      env:
+        DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}  # DokuWiki API URL from secrets
+        DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}  # DokuWiki username from secrets
+        DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}  # DokuWiki password from secrets
+      run: python update_wiki.py  # Run the Python script to update DokuWiki
