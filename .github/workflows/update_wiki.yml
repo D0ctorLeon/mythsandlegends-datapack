@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip  # Upgrade pip
-        pip install requests  # Install the requests library
+        pip install dokuwikixmlrpc  # Install the necessary library for DokuWiki interaction
 
     - name: Run update script
       env:

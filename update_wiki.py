@@ -1,68 +1,86 @@
+import dokuwikixmlrpc
 import os
 import json
-import xmlrpc.client
+from pathlib import Path
 import ssl
+import logging
 
-def fetch_json_files():
-    """Fetch all JSON files in the specified directory."""
-    json_files = []
-    for root, dirs, files in os.walk('data/cobblemon/spawn_pool_world'):
-        for file in files:
-            if file.endswith('.json'):
-                json_files.append(os.path.join(root, file))
-    return json_files
 
-def parse_json_file(file_path):
-    """Parse a JSON file and return the data."""
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    return data
+# Disable SSL verification (USE WITH CAUTION)
+ssl._create_default_https_context = ssl._create_unverified_context
 
-def format_data_for_dokuwiki(spawn):
-    """Format spawn data into DokuWiki syntax."""
-    pokemon_name = spawn['pokemon'].capitalize()
-    content = f"===== {pokemon_name} =====\n"
-    content += f"**Species**: {pokemon_name}\n"
-    content += f"**Presets**: {', '.join(spawn['presets'])}\n"
-    content += f"**Context**: {spawn['context']}\n"
-    content += f"**Spawn Bucket**: {spawn['bucket']}\n"
-    content += f"**Encounter Level Range**: {spawn['level']}\n"
-    content += f"**Weight**: {spawn['weight']}\n"
-    content += "**Biomes**:\n"
-    for biome in spawn['condition']['biomes']:
-        content += f"  * {biome}\n"
-    if 'key_item' in spawn['condition']:
-        key_item = spawn['condition']['key_item'].replace('_', ' ').title()
-        content += f"**Key Item**: {key_item}\n"
-    content += "**Additional Conditions**:\n"
-    for key, value in spawn['condition'].items():
-        if key != 'biomes' and key != 'key_item':
-            content += f"  * {key}: {value}\n"
-    return content
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def update_dokuwiki_page(pokemon, content):
-    """Update the DokuWiki page with the formatted content."""
-    url = os.getenv('DOKUWIKI_API_URL')
-    user = os.getenv('DOKUWIKI_USER')
-    password = os.getenv('DOKUWIKI_PASSWORD')
+def create_or_update_wiki_page(rpc, page_name, data):
+    # Add namespace to page name
+    page_name = f"spawn-info:{page_name}"
 
-    # Disable SSL verification
-    context = ssl._create_unverified_context()
-    server = xmlrpc.client.ServerProxy(url, context=context)
-    
-    token = server.dokuwiki.login(user, password)
-    page = f'pokedex:{pokemon.lower()}'
-    summary = 'Automated update from GitHub repository'
-    server.wiki.putPage(page, content, {'sum': summary})
+    content = f"===== {page_name.split(':')[1]} =====\n\n"  # Display name without namespace
 
-def main():
-    """Main function to fetch, parse, format, and update DokuWiki pages."""
-    json_files = fetch_json_files()
-    for file_path in json_files:
-        data = parse_json_file(file_path)
-        for spawn in data.get('spawns', []):
-            content = format_data_for_dokuwiki(spawn)
-            update_dokuwiki_page(spawn['pokemon'], content)
+    spawns = data.get("spawns", [])
+    combined_spawn = spawns[0].copy()
 
-if __name__ == "__main__":
-    main()
+    for spawn in spawns[1:]:
+        combined_spawn["condition"]["biomes"].extend(spawn["condition"]["biomes"])
+
+    pokemon = combined_spawn["pokemon"].capitalize()
+    presets = ", ".join(combined_spawn.get("presets", []))
+    context = combined_spawn.get("context", "")
+    bucket = combined_spawn.get("bucket", "")
+    level = combined_spawn.get("level", "")
+    weight = combined_spawn.get("weight", "")
+
+    content += f"\n**Species:** {pokemon}\n"
+    content += f"**Presets:** {presets}\n"
+    if context:
+        content += f"**Context:** {context}\n"
+    content += f"**Spawn Bucket:** {bucket}\n"
+    content += f"**Level Range:** {level}\n"
+    content += f"**Weight:** {weight}\n"
+
+    # Biomes table
+    biomes = list(set(combined_spawn["condition"]["biomes"]))
+    if biomes:
+        content += "^ Biomes ^\n"
+        for biome in biomes:
+            content += f"| {biome} |\n"
+
+    # Key Items
+    key_items = combined_spawn["condition"]["key_item"]
+    key_items = key_items.replace("_", " ").title()
+    content += f"\n**Key Items:** {key_items}\n"
+
+    # Additional Conditions (only if present)
+    other_conditions = {
+        k: v
+        for k, v in combined_spawn["condition"].items()
+        if k not in ("biomes", "key_item") and v
+    }
+    if other_conditions:
+        content += f"\n**Additional Conditions:** {other_conditions}\n"
+
+    rpc.put_page(page_name, content, summary="Automatic update from datapack repository")
+
+
+def process_repository(rpc, root_path):
+    data_folder = Path(root_path) / "data/cobblemon/spawn_pool_world"
+    for json_file in data_folder.glob("*.json"):
+        with open(json_file, "r") as file:
+            data = json.load(file)
+            pokemon_name = data["spawns"][0]["pokemon"].capitalize()
+            create_or_update_wiki_page(rpc, pokemon_name, data)
+
+
+# Configuration (Replace placeholders)
+wiki_url = os.environ["DOKUWIKI_API_URL"]
+username = os.environ["DOKUWIKI_USER"]
+password = os.environ["DOKUWIKI_PASSWORD"]
+# Initialize the XML-RPC client
+rpc = dokuwikixmlrpc.DokuWikiClient(wiki_url, username, password)
+
+
+# Get the repository root path
+repo_root = os.environ["GITHUB_WORKSPACE"] # get the github workspace path
+
+process_repository(rpc, repo_root)
