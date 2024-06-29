@@ -15,10 +15,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Check out the repository code
+      uses: actions/checkout@v3  # Use the latest version of checkout action
 
     - name: Set up Python
-      uses: actions/setup-python@v2  # Set up Python environment
+      uses: actions/setup-python@v4  # Use the latest version of setup-python action
       with:
         python-version: '3.x'  # Use Python 3.x
 
@@ -33,4 +33,3 @@ jobs:
         DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}  # DokuWiki username from secrets
         DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}  # DokuWiki password from secrets
       run: python update_wiki.py  # Run the Python script to update DokuWiki
-      
