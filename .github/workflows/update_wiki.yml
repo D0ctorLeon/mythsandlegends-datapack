@@ -3,7 +3,7 @@ name: Update DokuWiki
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
+      - master  # Trigger the workflow on pushes to the main branch
     paths:
       - 'data/cobblemon/spawn_pool_world/**'  # Only trigger when files in this directory change
 
