@@ -3,9 +3,11 @@ name: Update DokuWiki
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the main branch
+      - master  # Trigger the workflow on pushes to the master branch
     paths:
       - 'data/cobblemon/spawn_pool_world/**'  # Only trigger when files in this directory change
+
+  workflow_dispatch:  # Allow manual triggering of the workflow
 
 jobs:
   update-wiki:
@@ -31,3 +33,4 @@ jobs:
         DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}  # DokuWiki username from secrets
         DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}  # DokuWiki password from secrets
       run: python update_wiki.py  # Run the Python script to update DokuWiki
+      
