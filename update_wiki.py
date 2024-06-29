@@ -13,10 +13,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def create_or_update_wiki_page(rpc, page_name, data):
-    # Add namespace to page name
     page_name = f"spawn-info:{page_name}"
-
-    content = f"===== {page_name.split(':')[1]} =====\n\n"  # Display name without namespace
+    content = f"===== {page_name.split(':')[1]} =====\n\n"
 
     spawns = data.get("spawns", [])
     combined_spawn = spawns[0].copy()
@@ -51,17 +49,18 @@ def create_or_update_wiki_page(rpc, page_name, data):
     key_items = key_items.replace("_", " ").title()
     content += f"\n**Key Items:** {key_items}\n"
 
-    # Additional Conditions (only if present)
+    # Additional Conditions table
     other_conditions = {
         k: v
         for k, v in combined_spawn["condition"].items()
         if k not in ("biomes", "key_item") and v
     }
     if other_conditions:
-        content += f"\n**Additional Conditions:** {other_conditions}\n"
+        content += "^ Additional Conditions ^ Value ^\n"  # Table header
+        for condition, value in other_conditions.items():
+            content += f"| {condition} | {value} |\n"
 
     rpc.put_page(page_name, content, summary="Automatic update from datapack repository")
-
 
 def process_repository(rpc, root_path):
     data_folder = Path(root_path) / "data/cobblemon/spawn_pool_world"
