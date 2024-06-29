@@ -9,10 +9,12 @@
 
 name: CI
 on:
-  # Allows the workflow to be triggered by pushing or updating a PR, or manually triggered
   push:
-  pull_request:
-  workflow_dispatch:
+    branches:
+      - master  # Trigger the workflow on pushes to the master branch
+    paths:
+      - 'data/cobblemon/spawn_pool_world/**'  # Only trigger when files in this directory change
+  workflow_dispatch:  # Allow manual triggering of the workflow
 jobs:
   build-main:
     runs-on: ubuntu-latest
