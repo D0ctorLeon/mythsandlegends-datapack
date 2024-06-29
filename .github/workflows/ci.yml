@@ -35,7 +35,7 @@ jobs:
       - name: Compile and upload
         uses: actions/upload-artifact@v4
         with:
-          name: your-datapack v1
+          name: MythsandLegends-Datapack
           path: |
                data/
                pack.mcmeta
@@ -52,7 +52,7 @@ jobs:
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v4
         with:
-          artifact_name: '[UNZIP ME] your-datapack v1'
+          artifact_name: '[UNZIP ME] MythsandLegends-Datapack'
           packsquash_version: latest
           options: |
             pack_directory = '.'
