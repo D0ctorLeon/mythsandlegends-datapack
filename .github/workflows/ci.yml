@@ -8,42 +8,39 @@
 # This is completely intentional, please do not create a PR changing it!
 
 name: CI
+
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the master branch
+      - master 
     paths:
-      - 'data/cobblemon/spawn_pool_world/**'  # Only trigger when files in this directory change
-  workflow_dispatch:  # Allow manual triggering of the workflow
+      - 'data/cobblemon/spawn_pool_world/**' 
+  workflow_dispatch: 
+
 jobs:
   build-main:
     runs-on: ubuntu-latest
-    # Only run on PRs if the source branch is on someone else's repository
-    if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}  
+    if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
     steps:
-      # Clones repository so it has access to the files
       - name: Checkout repo
         uses: actions/checkout@v4
-      # Checks mcfunction files for errors
       - name: Check commands
         uses: mcbeet/check-commands@v1
         with:
           source: .
           minecraft: "1.20"
-      # Checks JSON for errors
       - name: Check JSON
         uses: ocular-d/json-linter@0.0.2
-      # Uploads an artifact that you can download and use in your Minecraft world
       - name: Compile and upload
         uses: actions/upload-artifact@v4
         with:
           name: MythsandLegends-Datapack
           path: |
-               data/
-               pack.mcmeta
-               pack.png
-       # Errors if files aren't found
+            data/
+            pack.mcmeta
+            pack.png
           if-no-files-found: error
+  
   build-packsquash:
     runs-on: ubuntu-latest
     steps:
@@ -59,3 +56,63 @@ jobs:
           options: |
             pack_directory = '.'
             allow_mods = ['OptiFine']
+
+  upload-modrinth:
+    needs: build-main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MythsandLegends-Datapack
+      - name: Check if version.txt exists
+        id: check_version_file
+        run: |
+          if [[ -f "version.txt" ]]; then
+            echo "file_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "file_exists=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Initialize or Increment Version
+        run: |
+          if [[ "${{ steps.check_version_file.outputs.file_exists }}" == "false" ]]; then
+            echo "1.0" > version.txt
+          else
+            VERSION=$(cat version.txt)
+            NEW_VERSION=$(echo "$VERSION" | awk -F. '{print $1 "." ($2+1)}')
+            echo "$NEW_VERSION" > version.txt
+          fi
+          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+      - name: Get commit history for changelog
+        id: changelog
+        run: |
+          echo "CHANGELOG=$(git log --pretty=format:'- %h %s (%an)' -n 10)" >> $GITHUB_OUTPUT
+      - name: Create Zip file
+        run: |
+          zip -r MythsandLegends-Datapack.zip MythsandLegends-Datapack
+      - name: Upload to Modrinth
+        uses: modrinth/minotaur@v2
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        with:
+          project_slug: myths-and-legends-datapack
+          version_number: ${{ env.VERSION }}
+          version_type: release
+          changelog: ${{ steps.changelog.outputs.CHANGELOG }}
+          game_versions: "1.20.1"
+          dependencies: |
+            required:
+              - "MdwFAVRL"
+              - "CaOWby9K"
+          loaders: |
+            - "fabric"
+            - "forge"
+          file_name: MythsandLegends-Datapack.zip
+          upload_file: MythsandLegends-Datapack.zip
+      - name: Commit updated version.txt
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated version bump to ${{ env.VERSION }}"
+          file_pattern: version.txt
