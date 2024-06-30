@@ -93,7 +93,7 @@ jobs:
         run: |
           zip -r MythsandLegends-Datapack.zip MythsandLegends-Datapack
       - name: Upload to Modrinth
-        uses: modrinth/minotaur@v2
+        uses: modrinth/minotaur@v2.8.7
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         with:
