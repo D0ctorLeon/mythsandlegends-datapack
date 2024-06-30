@@ -12,107 +12,104 @@ name: CI
 on:
   push:
     branches:
-      - master 
+      - master
     paths:
-      - 'data/cobblemon/spawn_pool_world/**' 
-  workflow_dispatch: 
+      - 'data/cobblemon/spawn_pool_world/**'
+  workflow_dispatch:
 
 jobs:
-  build-main:
+  build-and-upload:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for changelog
+
       - name: Check commands
         uses: mcbeet/check-commands@v1
         with:
           source: .
           minecraft: "1.20"
+
       - name: Check JSON
         uses: ocular-d/json-linter@0.0.2
+
+      - name: Generate/Update Version
+        id: versioning
+        run: |
+          if [[ ! -f version.txt ]]; then
+            echo "1.1" > version.txt
+            NEW_VERSION="1.1"
+          else
+            CURRENT_VERSION=$(cat version.txt)
+            NEW_VERSION=$(echo "$CURRENT_VERSION" | awk -F. '{print $1 "." ($2 + 1)}')
+            echo "$NEW_VERSION" > version.txt
+          fi
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Commit Version Change
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add version.txt
+          git commit -m "Update version to ${{ steps.versioning.outputs.version }}" || true  # Allow empty commit if no changes
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          echo "changelog=$(git log --pretty=format:'- %h %s (%an)' --reverse HEAD^..HEAD)" >> $GITHUB_OUTPUT
+
       - name: Compile and upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: MythsandLegends-Datapack
           path: |
             data/
             pack.mcmeta
             pack.png
+            version.txt  # Include version file
           if-no-files-found: error
-  
-  build-packsquash:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Run PackSquash
-        uses: ComunidadAylas/PackSquash-action@v4
-        with:
-          artifact_name: '[UNZIP ME] MythsandLegends-Datapack'
-          packsquash_version: latest
-          options: |
-            pack_directory = '.'
-            allow_mods = ['OptiFine']
 
-  upload-modrinth:
-    needs: build-main
+  publish-modrinth:
+    needs: build-and-upload  # Wait for artifact
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v2
         with:
           name: MythsandLegends-Datapack
-      - name: Check if version.txt exists
-        id: check_version_file
-        run: |
-          if [[ -f "version.txt" ]]; then
-            echo "file_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "file_exists=false" >> $GITHUB_OUTPUT
-          fi
-      - name: Initialize or Increment Version
-        run: |
-          if [[ "${{ steps.check_version_file.outputs.file_exists }}" == "false" ]]; then
-            echo "1.0" > version.txt
-          else
-            VERSION=$(cat version.txt)
-            NEW_VERSION=$(echo "$VERSION" | awk -F. '{print $1 "." ($2+1)}')
-            echo "$NEW_VERSION" > version.txt
-          fi
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
-      - name: Get commit history for changelog
-        id: changelog
-        run: |
-          echo "CHANGELOG=$(git log --pretty=format:'- %h %s (%an)' -n 10)" >> $GITHUB_OUTPUT
-      - name: Create Zip file
-        run: |
-          zip -r MythsandLegends-Datapack.zip MythsandLegends-Datapack
+
       - name: Upload to Modrinth
-        uses: modrinth/minotaur@v2.8.7
-        env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        uses: cloudnode-pro/modrinth-publish@1.0.0
         with:
-          project_slug: myths-and-legends-datapack
-          version_number: ${{ env.VERSION }}
-          version_type: release
-          changelog: ${{ steps.changelog.outputs.CHANGELOG }}
-          game_versions: "1.20.1"
-          dependencies: |
-            required:
-              - "MdwFAVRL"
-              - "CaOWby9K"
-          loaders: |
-            - "fabric"
-            - "forge"
-          file_name: MythsandLegends-Datapack.zip
-          upload_file: MythsandLegends-Datapack.zip
-      - name: Commit updated version.txt
-        uses: stefanzweifel/git-auto-commit-action@v4
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: CaOWby9K  # myths-and-legends-datapack
+          file: MythsandLegends-Datapack.zip  
+          changelog: ${{ needs.build-and-upload.outputs.changelog }}
+          version: ${{ needs.build-and-upload.outputs.version }}
+          game_versions: 1.20.1
+          loaders: fabric, forge
+          dependencies: MdwFAVRL, CaOWby9K
+          api-domain: api.modrinth.com  
+
+  publish-curseforge:
+    needs: build-and-upload  # Wait for artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
         with:
-          commit_message: "Automated version bump to ${{ env.VERSION }}"
-          file_pattern: version.txt
+          name: MythsandLegends-Datapack
+
+      - name: Upload to CurseForge
+        uses: itsmeow/curseforge-upload@v3 
+        with:
+          file_path: MythsandLegends-Datapack.zip
+          game_endpoint: minecraft
+          relations: requiredDependency:1037337,requiredDependency:687131
+          game_versions: 1.20.1
+          project_id: 1052805  # mythsandlegends-datapack
+          token: ${{ secrets.CF_API_TOKEN }}
