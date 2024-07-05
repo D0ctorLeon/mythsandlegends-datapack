@@ -1,0 +1,46 @@
+name: Upload to Modrinth and CurseForge
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Release Asset
+        uses: actions/download-artifact@v3
+        with:
+          name: MythsandLegends-Datapack
+          path: ./
+
+      - name: Get Version from File
+        id: get_version
+        run: |
+          VERSION=$(cat version.txt)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Upload to Modrinth
+        uses: cloudnode-pro/modrinth-publish@1.0.0
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: CaOWby9K
+          file: MythsandLegends-Datapack.zip
+          changelog: ${{ github.event.release.body }}
+          version: ${{ steps.get_version.outputs.version }}  # Use the version from file
+          game-versions: 1.20.1
+          loaders: fabric, forge
+          dependencies: '[{"project_id": "MdwFAVRL", "dependency_type": "required"}, {"project_id": "CaOWby9K", "dependency_type": "required"}]'
+
+      - name: Upload to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: MythsandLegends-Datapack.zip
+          game_endpoint: minecraft
+          relations: "cobblemon:requiredDependency,myths-and-legends-cobblemon-addon:requiredDependency"
+          game_versions: 1.20.1
+          project_id: 1052805
+          token: ${{ secrets.CF_API_TOKEN }}
+          release_type: release
+          # Use the version from file.
+          display_name: "Myths and Legends Datapack - ${{ steps.get_version.outputs.version }}"

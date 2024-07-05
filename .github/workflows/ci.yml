@@ -8,20 +8,20 @@
 # This is completely intentional, please do not create a PR changing it!
 
 name: CI
+
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the master branch
+      - master
     paths:
-      - 'data/cobblemon/spawn_pool_world/**'  # Only trigger when files in this directory change
-  workflow_dispatch:  # Allow manual triggering of the workflow
+      - 'data/cobblemon/spawn_pool_world/**'
+  workflow_dispatch:
+
 jobs:
-  build-main:
+  build-and-upload:
     runs-on: ubuntu-latest
-    # Only run on PRs if the source branch is on someone else's repository
-    if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}  
+    if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
     steps:
-      # Clones repository so it has access to the files
       - name: Checkout repo
         uses: actions/checkout@v4
       # Checks mcfunction files for errors
@@ -33,17 +33,38 @@ jobs:
       # Checks JSON for errors
       - name: Check JSON
         uses: ocular-d/json-linter@0.0.2
-      # Uploads an artifact that you can download and use in your Minecraft world
+
+      - name: Generate/Update Version
+        id: versioning
+        run: |
+          CURRENT_VERSION=$(cat version.txt)
+          NEW_VERSION=$(echo "$CURRENT_VERSION" | awk -F. '{print $1 "." $2 "." ($3 + 1)}')  # Increment PATCH version
+          echo "$NEW_VERSION" > version.txt
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Commit Version Change
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add version.txt
+          git commit -m "Update version to ${{ steps.versioning.outputs.version }}" || true  # Allow empty commit if no changes
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          echo "changelog=$(git log --pretty=format:'- %h %s (%an)' --reverse HEAD^..HEAD)" >> $GITHUB_OUTPUT 
+
       - name: Compile and upload
         uses: actions/upload-artifact@v4
         with:
           name: MythsandLegends-Datapack
           path: |
-               data/
-               pack.mcmeta
-               pack.png
-       # Errors if files aren't found
+            data/
+            pack.mcmeta
+            pack.png
+            version.txt  # Include version file
           if-no-files-found: error
+
   build-packsquash:
     runs-on: ubuntu-latest
     steps:
