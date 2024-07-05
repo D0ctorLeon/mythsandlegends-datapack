@@ -43,6 +43,7 @@
           "#cobblemon:is_highlands",
           "minecraft:end_highlands",
           "#minecraft:is_end",
+          "#cobblemon:is_end",
           "#cobblemon:is_jungle",
           "#minecraft:is_jungle"
         ],
