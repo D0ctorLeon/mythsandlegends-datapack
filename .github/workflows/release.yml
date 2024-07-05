@@ -1,0 +1,50 @@
+name: Create Private Release
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Download Latest CI Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: MythsandLegends-Datapack  # Artifact name from CI
+          path: ./  # Download to the current working directory
+
+      - name: Get Version from File
+        id: get_version
+        run: |
+          VERSION=$(cat version.txt)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate Changelog from Commits
+        id: changelog
+        run: |
+          echo "changelog=$(git log --pretty=format:'- %h %s (%an)' --since='last tag' --data)" >> $GITHUB_OUTPUT # Get commits since the last tag (assuming you use tags for releases)
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changelog }} # Use the generated changelog
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./MythsandLegends-Datapack.zip
+          asset_name: MythsandLegends-Datapack.zip
+          asset_content_type: application/zip

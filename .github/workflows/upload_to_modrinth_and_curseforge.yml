@@ -9,15 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Release Asset
-        uses: actions/download-artifact@v3
+        uses: actions/download-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: MythsandLegends-Datapack
-          path: ./
+          asset_path: MythsandLegends-Datapack.zip
+          asset_name: MythsandLegends-Datapack.zip
+          repo: ${{ github.repository }}
+          tag: ${{ github.event.release.tag_name }}
 
-      - name: Get Version from File
+      - name: Get Version from Release Tag
         id: get_version
         run: |
-          VERSION=$(cat version.txt)
+          VERSION=${{ github.event.release.tag_name }}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Upload to Modrinth
