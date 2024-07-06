@@ -64,12 +64,6 @@ jobs:
         id: get_version
         run: echo "version=$(cat version.txt)" >> $GITHUB_ENV
 
-      # Download the artifact from build-main
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: MythsandLegends-Datapack-v${{ env.version }}
-
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v4
         with:
