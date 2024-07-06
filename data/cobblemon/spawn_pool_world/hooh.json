@@ -42,6 +42,46 @@
         ],
         "key_item": "clear_bell"
       }
+    },
+    {
+      "id": "mythsandlegends-hooh-3",
+      "pokemon": "hooh",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "40-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:meadow",
+          "minecraft:sunflower_plains",
+          "minecraft:flower_forest"
+        ],
+        "key_item": "rainbow_wing"
+      }
+    },
+    {
+      "id": "mythsandlegends-hooh-4",
+      "pokemon": "hooh",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "40-70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_sky",
+          "#minecraft:sunflower_plains",
+          "#cobblemon:is_summer"
+        ],
+        "key_item": "rainbow_wing"
+      }
     }
   ]
 }
