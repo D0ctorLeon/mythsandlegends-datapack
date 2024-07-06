@@ -24,20 +24,20 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Check commands
         uses: mcbeet/check-commands@v1
         with:
           source: .
           minecraft: "1.20"
+
       - name: Check JSON
         uses: ocular-d/json-linter@0.0.2
 
       # Read version from version.txt
       - name: Get version
         id: get_version
-        run: |
-          echo "version=$(cat version.txt)" >> $GITHUB_ENV
-          echo "version=${{ env.version }}" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat version.txt)" >> $GITHUB_ENV
 
       # Uploads an artifact with the version in the name
       - name: Compile and upload
@@ -50,30 +50,30 @@ jobs:
             pack.png
           if-no-files-found: error
 
-      # Set the version as an output for the job
-      - name: Set version output
-        id: set_version_output
-        run: echo "version=${{ env.version }}" >> $GITHUB_OUTPUT
-
   build-packsquash:
     runs-on: ubuntu-latest
-    needs: build-main  # Make sure build-main completes first
+    needs: build-main
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # Read version from version.txt
+      - name: Get version
+        id: get_version
+        run: echo "version=$(cat version.txt)" >> $GITHUB_ENV
+
       # Download the artifact from build-main
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: MythsandLegends-Datapack-v${{ needs.build-main.outputs.get_version.outputs.version }}
+          name: MythsandLegends-Datapack-v${{ env.version }}
 
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v4
         with:
-          artifact_name: '[UNZIP ME] MythsandLegends-Datapack-v${{ needs.build-main.outputs.get_version.outputs.version }}'
+          artifact_name: '[UNZIP ME] MythsandLegends-Datapack-v${{ env.version }}'
           packsquash_version: latest
           options: |
             pack_directory = '.'
