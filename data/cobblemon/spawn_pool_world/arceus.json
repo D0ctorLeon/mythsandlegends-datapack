@@ -50,7 +50,7 @@
           "wythers:lantern_river",
           "wythers:mushroom_island",
           "wythers:snowy_thermal_taiga",
-          "#minecraft:is_end"
+          "#cobblemon:is_end"
         ],
         "key_item": "azure_flute"
       }

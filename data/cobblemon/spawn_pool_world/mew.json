@@ -16,7 +16,7 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "#minecraft:is_jungle",
+          "#cobblemon:is_jungle",
           "minecraft:bamboo_jungle",
           "minecraft:jungle"
         ],

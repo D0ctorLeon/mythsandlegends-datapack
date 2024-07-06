@@ -17,7 +17,7 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "#minecraft:is_ocean",
+          "#cobblemon:is_ocean",
           "minecraft:deep_cold_ocean",
           "minecraft:deep_frozen_ocean",
           "minecraft:deep_ocean",
@@ -40,7 +40,7 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "#minecraft:is_deep_ocean",
+          "#cobblemon:is_deep_ocean",
           "#cobblemon:is_ocean"
         ],
         "key_item": "blue_orb"

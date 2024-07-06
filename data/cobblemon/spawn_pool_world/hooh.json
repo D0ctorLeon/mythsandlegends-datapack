@@ -37,7 +37,7 @@
       "condition": {
         "biomes": [
           "#cobblemon:is_sky",
-          "#minecraft:sunflower_plains",
+          "minecraft:sunflower_plains",
           "#cobblemon:is_summer"
         ],
         "key_item": "clear_bell"

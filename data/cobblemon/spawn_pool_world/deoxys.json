@@ -38,7 +38,7 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "#minecraft:is_end"
+          "#cobblemon:is_end"
         ],
         "key_item": "aurora_ticket"
       }

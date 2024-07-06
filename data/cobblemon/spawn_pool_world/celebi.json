@@ -47,7 +47,7 @@
           "#cobblemon:is_forest",
           "#cobblemon:is_magical",
           "#cobblemon:is_lush",
-          "#minecraft:cherry_grove",
+          "minecraft:cherry_grove",
           "#cobblemon:is_spring"
         ],
         "key_item": "gs_ball"

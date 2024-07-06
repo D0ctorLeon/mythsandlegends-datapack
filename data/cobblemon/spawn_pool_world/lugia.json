@@ -59,7 +59,7 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "#minecraft:is_deep_ocean",
+          "#cobblemon:is_deep_ocean",
           "minecraft:deep_ocean",
           "minecraft:ocean"
         ],

@@ -45,7 +45,7 @@
           "minecraft:end_barrens",
           "minecraft:end_highlands",
           "minecraft:end_midlands",
-          "#minecraft:is_end",
+          "#cobblemon:is_end",
           "minecraft:small_end_islands"
         ],
         "key_item": "lustrous_orb"
