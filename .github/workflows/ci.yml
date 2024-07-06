@@ -18,65 +18,57 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-upload:
+  build-main:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      # Checks mcfunction files for errors
       - name: Check commands
         uses: mcbeet/check-commands@v1
         with:
           source: .
           minecraft: "1.20"
-      # Checks JSON for errors
       - name: Check JSON
         uses: ocular-d/json-linter@0.0.2
 
-      - name: Generate/Update Version
-        id: versioning
+      # Read version from version.txt
+      - name: Get version
+        id: get_version
         run: |
-          CURRENT_VERSION=$(cat version.txt)
-          NEW_VERSION=$(echo "$CURRENT_VERSION" | awk -F. '{print $1 "." $2 "." ($3 + 1)}')  # Increment PATCH version
-          echo "$NEW_VERSION" > version.txt
-          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+          echo "version=$(cat version.txt)" >> $GITHUB_OUTPUT 
 
-      - name: Commit Version Change
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add version.txt
-          git commit -m "Update version to ${{ steps.versioning.outputs.version }}" 
-
-      - name: Generate Changelog
-        id: changelog
-        run: |
-          echo "changelog=$(git log --pretty=format:'- %h %s (%an)' --reverse HEAD^..HEAD)" >> $GITHUB_OUTPUT 
-
+      # Uploads an artifact with the version in the name
       - name: Compile and upload
         uses: actions/upload-artifact@v4
         with:
-          name: MythsandLegends-Datapack
+          name: MythsandLegends-Datapack-v${{ steps.get_version.outputs.version }}
           path: |
             data/
             pack.mcmeta
             pack.png
-            version.txt  # Include version file
           if-no-files-found: error
 
   build-packsquash:
     runs-on: ubuntu-latest
+    needs: build-main  # Make sure build-main completes first
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Download the artifact from build-main
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MythsandLegends-Datapack-v${{ needs.build-main.outputs.version }}
+
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v4
         with:
-          artifact_name: '[UNZIP ME] MythsandLegends-Datapack'
+          artifact_name: '[UNZIP ME] MythsandLegends-Datapack-v${{ needs.build-main.outputs.version }}'
           packsquash_version: latest
           options: |
             pack_directory = '.'
-            allow_mods = ['OptiFine']
+            allow_mods = ['OptiFine'] 

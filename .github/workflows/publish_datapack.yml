@@ -1,0 +1,74 @@
+name: Publish and Release
+
+on:
+  workflow_dispatch:  # Trigger manually for releases
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history is available
+
+      - name: Get version and calculate next version
+        id: version
+        run: |
+          current_version=$(cat version.txt)
+          IFS='.' read -r major minor patch <<< "$current_version"
+          ((patch++))
+          if ((patch >= 10)); then
+              patch=0
+              ((minor++))
+          fi
+          if ((minor >= 10)); then
+              minor=0
+              ((major++))
+          fi
+          next_version="$major.$minor.$patch"
+          echo "current_version=$current_version" >> $GITHUB_OUTPUT
+          echo "next_version=$next_version" >> $GITHUB_OUTPUT
+
+      # Get relevant commit history
+      - name: Get commit history
+        id: get_history
+        run: |
+          log=$(git log --pretty=format:'- %s (%ae)' -- data/cobblemon/spawn_pool_world)
+          echo "changes=$log" >> $GITHUB_OUTPUT
+
+      # Download the latest artifact
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MythsandLegends-Datapack-v${{ steps.version.outputs.current_version }}
+
+      # Create a release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          body: |
+            **Changes in v${{ steps.version.outputs.next_version }}:**
+
+            ${{ steps.get_history.outputs.changes }}
+
+            **Credits:**
+
+            _Thanks to everyone who contributed to this release!_
+          tag_name: v${{ steps.version.outputs.next_version }}
+          name: MythsandLegends Datapack v${{ steps.version.outputs.next_version }}
+          files: '[UNZIP ME] MythsandLegends-Datapack-v${{ steps.version.outputs.current_version }}'
+          draft: false
+          prerelease: false
+
+      # Update and commit the version file
+      - name: Update version
+        run: |
+          echo ${{ steps.version.outputs.next_version }} > version.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add version.txt
+          git commit -m "Bump version to v${{ steps.version.outputs.next_version }}"
+          git push 
