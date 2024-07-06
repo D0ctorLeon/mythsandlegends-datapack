@@ -36,23 +36,23 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          echo "version=$(cat version.txt)" >> $GITHUB_OUTPUT 
+          echo "version=$(cat version.txt)" >> $GITHUB_ENV
 
       # Uploads an artifact with the version in the name
       - name: Compile and upload
         uses: actions/upload-artifact@v4
         with:
-          name: MythsandLegends-Datapack-v${{ steps.get_version.outputs.version }}
+          name: MythsandLegends-Datapack-v${{ env.version }}
           path: |
             data/
             pack.mcmeta
             pack.png
           if-no-files-found: error
 
-            # Set the version as an output for the job
+      # Set the version as an output for the job
       - name: Set version output
         id: set_version_output
-        run: echo "version=${{ steps.get_version.outputs.version }}" >> $GITHUB_OUTPUT
+        run: echo "version=${{ env.version }}" >> $GITHUB_OUTPUT
 
   build-packsquash:
     runs-on: ubuntu-latest
@@ -76,4 +76,4 @@ jobs:
           packsquash_version: latest
           options: |
             pack_directory = '.'
-            allow_mods = ['OptiFine'] 
+            allow_mods = ['OptiFine']
