@@ -14,9 +14,9 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "minecraft:flower_forest",
-          "minecraft:bamboo_jungle",
-          "minecraft:jungle"
+          "#cobblemon:is_floral",
+          "#cobblemon:is_bamboo",
+          "#cobblemon:is_jungle"
         ],
         "moonPhase": 6,
         "key_item": "teal_mask"
