@@ -14,13 +14,10 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "minecraft:dark_forest_hills",
-          "minecraft:roofed_forest_m",
-          "minecraft:swamp_hills"
+          "minecraft:dark_forest",
+          "byg:warped_desert",
+          "#cobblemon:is_hills"
         ],
-        "minLight": 0,
-        "maxLight": 7,
-        "moonPhase": 0,
         "timeRange": "night",
         "key_item": "moon_flute"
       }

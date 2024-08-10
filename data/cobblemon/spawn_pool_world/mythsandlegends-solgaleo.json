@@ -14,13 +14,10 @@
       "weight": 0.1,
       "condition": {
         "biomes": [
-          "minecraft:savanna_plateau",
-          "minecraft:desert_hills",
-          "minecraft:badlands_plateau"
+          "#cobblemon:is_plateau",
+          "minecraft:desert",
+          "wythers:badlands_desert"
         ],
-        "minLight": 8,
-        "maxLight": 15,
-        "moonPhase": 7,
         "timeRange": "day",
         "key_item": "sun_flute"
       }

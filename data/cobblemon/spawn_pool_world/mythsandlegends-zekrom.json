@@ -20,7 +20,6 @@
         ],
         "minLight": 0,
         "maxLight": 7,
-        "timeRange": "night",
         "key_item": "dark_stone"
       }
     }
