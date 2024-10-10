@@ -1,0 +1,99 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-magearna-1",
+      "pokemon": "magearna",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "neededNearbyBlocks": [
+          "minecraft:iron_block"
+        ],
+        "key_item": "antique_pokeball"
+      }
+    },
+    {
+      "id": "mythsandlegends-magearna-2",
+      "pokemon": "magearna",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "neededNearbyBlocks": [
+          "minecraft:iron_block"
+        ],
+        "key_item": "antique_pokeball"
+      }
+    },
+    {
+      "id": "mythsandlegends-magearna-3",
+      "pokemon": "magearna",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "neededNearbyBlocks": [
+          "minecraft:iron_block"
+        ],
+        "key_item": "soul_heart"
+      }
+    },
+    {
+      "id": "mythsandlegends-magearna-4",
+      "pokemon": "magearna",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "neededNearbyBlocks": [
+          "minecraft:iron_block"
+        ],
+        "key_item": "soul_heart"
+      }
+    }
+  ]
+}

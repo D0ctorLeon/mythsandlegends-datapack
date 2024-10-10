@@ -1,0 +1,43 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-regeleki-1",
+      "pokemon": "regeleki",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "plasma_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regeleki-2",
+      "pokemon": "regeleki",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    }
+  ]
+}

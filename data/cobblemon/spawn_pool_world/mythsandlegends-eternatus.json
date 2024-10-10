@@ -1,0 +1,55 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-eternatus-1",
+      "pokemon": "eternatus",
+      "presets": [
+        "water_surface"
+      ],
+      "type": "pokemon",
+      "context": "surface",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:mangrove_swamp",
+          "minecraft:swamp",
+          "#byg:is_swamp",
+          "#c:swamp",
+          "#forge:is_swamp",
+          "#wythers:is_swamp",
+          "terralith:ice_marsh",
+          "terralith:orchid_swampc",
+          "wythers:billabong"
+        ],
+        "key_item": "eternatus_core"
+      }
+    },
+    {
+      "id": "mythsandlegends-eternatus-2",
+      "pokemon": "eternatus",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "eternatus_core"
+      }
+    }
+  ]
+} 

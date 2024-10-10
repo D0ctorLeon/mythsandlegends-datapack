@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-pecharunt-1",
+      "pokemon": "pecharunt",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:dark_forest",
+          "minecraft:swamp"
+        ],
+        "key_item": "mythical_pecha_berry"
+      }
+    },
+    {
+      "id": "mythsandlegends-pecharunt-2",
+      "pokemon": "pecharunt",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:woodland_mansion",
+          "minecraft:swamp_hut",
+          "minecraft:pillager_outpost "
+        ],
+        "key_item": "mythical_pecha_berry"
+      }
+    }
+  ]
+}

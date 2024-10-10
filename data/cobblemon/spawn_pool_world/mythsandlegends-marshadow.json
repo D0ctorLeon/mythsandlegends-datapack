@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-marshadow-1",
+      "pokemon": "marshadow",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:dark_forest",
+          "minecraft:swamp"
+        ],
+        "key_item": "marshadow_hood"
+      }
+    },
+    {
+      "id": "mythsandlegends-marshadow-2",
+      "pokemon": "marshadow",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_spooky",
+          "#cobblemon:is_dark",
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "marshadow_hood"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zeraora-1",
+      "pokemon": "zeraora",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_savanna",
+          "terralith:arid_highlands",
+          "terralith:ashen_savanna",
+          "terralith:brushland",
+          "terralith:desert_oasis",
+          "terralith:fractured_savanna",
+          "terralith:hot_shrubland",
+          "terralith:red_oasis",
+          "terralith:savanna_badlands",
+          "terralith:savanna_slopes",
+          "terralith:shrubland",
+          "wythers:granite_canyon",
+          "wythers:tropical_forest_canyon",
+          "wythers:tropical_forest"
+        ],
+        "key_item": "zeraoras_thunderclaw"
+      }
+    }
+  ]
+} 

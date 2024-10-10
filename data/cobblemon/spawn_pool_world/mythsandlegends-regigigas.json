@@ -1,0 +1,100 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-regigigas-1",
+      "pokemon": "regigigas",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regigigas-2",
+      "pokemon": "regigigas",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_savanna",
+          "#minecraft:savanna_plateau",
+          "#wythers:is_dark_forest",
+          "terralith:savanna_slopes",
+          "terralith:ashen_savanna",
+          "terralith:fractured_savanna",
+          "terralith:savanna_badlands",
+          "terralith:savanna_slopes",
+          "minecraft:savanna_plateau",
+          "#cobblemon:is_savanna"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regigigas-3",
+      "pokemon": "regigigas",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_savanna",
+          "#minecraft:savanna_plateau",
+          "#wythers:is_dark_forest",
+          "terralith:savanna_slopes",
+          "terralith:ashen_savanna",
+          "terralith:fractured_savanna",
+          "terralith:savanna_badlands",
+          "terralith:savanna_slopes",
+          "minecraft:savanna_plateau",
+          "#cobblemon:is_savanna"
+        ],
+      "custom_pokemons_in_team": [
+        {
+          "species": "regice",
+          "count": 1
+        },
+        {
+          "species": "regidrago",
+          "count": 1
+        },
+        {
+          "species": "regieleki",
+          "count": 1
+        },
+        {
+          "species": "regirock",
+          "count": 1
+        },
+        {
+          "species": "registeel",
+          "count": 1
+        }
+      ]
+      }
+    }
+  ]
+}

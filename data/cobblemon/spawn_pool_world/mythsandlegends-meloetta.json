@@ -1,0 +1,51 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-meloetta-1",
+      "pokemon": "meloetta",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:cherry_grove",
+          "minecraft:flower_forest",
+          "minecraft:meadow",
+          "minecraft:sunflower_plains",
+          "#byg:is_floral",
+          "#c:floral",
+          "#c:flower_forests",
+          "byg:amaranth_fields",
+          "byg:allium_fields",
+          "byg:rose_fields",
+          "byg:skyris_vale",
+          "byg:cherry_blossom_forest",
+          "byg:orchard",
+          "terralith:blooming_plateau",
+          "terralith:blooming_valley",
+          "terralith:lavender_forest",
+          "terralith:lavender_valley",
+          "terralith:sakura_grove",
+          "terralith:sakura_valley",
+          "wythers:autumnal_flower_forest",
+          "wythers:flowering_pantanal",
+          "wythers:jacaranda_savanna",
+          "wythers:lapacho_plains",
+          "wythers:sakura_forest",
+          "wythers:spring_flower_fields",
+          "wythers:spring_flower_forest"
+
+        ],
+        "key_item": "meloetta_headset"
+      }
+    }
+  ]
+} 

@@ -1,0 +1,76 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-tapubulu-1",
+      "pokemon": "tapubulu",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_jungle",
+          "terralith:cave/underground_jungle",
+          "wythers:dripleaf_swamp",
+          "wythers:eucalyptus_deanei_forest",
+          "wythers:highland_tropical_rainforest",
+          "wythers:humid_tropical_grassland",
+          "wythers:jungle_canyon",
+          "wythers:subtropical_forest",
+          "wythers:subtropical_forest_edge",
+          "wythers:subtropical_grassland",
+          "wythers:tropical_forest",
+          "wythers:tropical_forest_canyon",
+          "wythers:tropical_grassland",
+          "wythers:tropical_island",
+          "wythers:tropical_rainforest"
+        ],
+        "key_item": "bulu_totem"
+      }
+    },
+    {
+      "id": "mythsandlegends-tapubulu-2",
+      "pokemon": "tapubulu",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:stony_shore",
+          "#cobblemon:is_beach",
+          "#c:stony_shores",
+          "terralith:basalt_cliffs",
+          "terralith:granite_cliffs",
+          "terralith:white_cliffs",
+          "wythers:calcite_coast",
+          "wythers:coastal_mangroves",
+          "wythers:cold_island",
+          "wythers:cold_stony_shore",
+          "wythers:deepslate_shore",
+          "wythers:frigid_island",
+          "wythers:frozen_island",
+          "wythers:gravelly_beach",
+          "wythers:icy_shore",
+          "wythers:mediterranean_island",
+          "wythers:temperate_island",
+          "wythers:tropical_island",
+          "wythers:warm_stony_shore"
+          
+        ],
+        "key_item": "bulu_totem"
+      }
+    }
+  ]
+} 

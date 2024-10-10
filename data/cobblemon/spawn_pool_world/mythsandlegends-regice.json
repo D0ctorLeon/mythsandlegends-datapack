@@ -1,0 +1,135 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-regice-1",
+      "pokemon": "regice",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:frozen_river",
+          "minecraft:jagged_peaks",
+          "minecraft:snowy_beach",
+          "minecraft:snowy_plains",
+          "minecraft:snowy_slopes",
+          "#cobblemon:is_frozen_ocean",
+          "#cobblemon:is_glacial",
+          "#cobblemon:is_snowy_forest",
+          "#byg:is_snowy",
+          "#c:snowy",
+          "#forge:is_snowy",
+          "byg:cardinal_tundra",
+          "terralith:emerald_peaks",
+          "terralith:scarlet_mountains",
+          "terralith:skylands_winter",
+          "terralith:snowy_badlands",
+          "wythers:crimson_tundra",
+          "wythers:frozen_island",
+          "wythers:snowy_bog",
+          "wythers:snowy_canyon",
+          "wythers:snowy_peaks",
+          "wythers:snowy_tundra"
+        ],
+        "key_item": "ice_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regice-2",
+      "pokemon": "regice",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_freezing",
+          "#cobblemon:is_peak",
+          "#cobblemon:is_taiga",
+          "#cobblemon:is_tundra",
+          "#byg:is_cold",
+          "#c:climate_cold",
+          "#forge:is_cold/overworld",
+          "wythers:berry_bog"
+        ],
+        "key_item": "ice_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regice-3",
+      "pokemon": "regice",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:frozen_river",
+          "minecraft:jagged_peaks",
+          "minecraft:snowy_beach",
+          "minecraft:snowy_plains",
+          "minecraft:snowy_slopes",
+          "#cobblemon:is_frozen_ocean",
+          "#cobblemon:is_glacial",
+          "#cobblemon:is_snowy_forest",
+          "#byg:is_snowy",
+          "#c:snowy",
+          "#forge:is_snowy",
+          "byg:cardinal_tundra",
+          "terralith:emerald_peaks",
+          "terralith:scarlet_mountains",
+          "terralith:skylands_winter",
+          "terralith:snowy_badlands",
+          "wythers:crimson_tundra",
+          "wythers:frozen_island",
+          "wythers:snowy_bog",
+          "wythers:snowy_canyon",
+          "wythers:snowy_peaks",
+          "wythers:snowy_tundra"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regice-4",
+      "pokemon": "regice",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_freezing",
+          "#cobblemon:is_peak",
+          "#cobblemon:is_taiga",
+          "#cobblemon:is_tundra",
+          "#byg:is_cold",
+          "#c:climate_cold",
+          "#forge:is_cold/overworld",
+          "wythers:berry_bog"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    }
+  ]
+}

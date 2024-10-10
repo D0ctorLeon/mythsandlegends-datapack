@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-calyrex-1",
+      "pokemon": "calyrex",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_autumn",
+          "minecraft:flower_forest"
+        ],
+        "key_item": "reins_of_unity"
+      }
+    }
+  ]
+}

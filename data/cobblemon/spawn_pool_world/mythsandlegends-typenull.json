@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-typenull-1",
+      "pokemon": "typenull",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "type:null_mask"
+      }
+    },
+    {
+      "id": "mythsandlegends-typenull-2",
+      "pokemon": "typenull",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "60",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "type:null_mask"
+      }
+    }
+  ]
+} 

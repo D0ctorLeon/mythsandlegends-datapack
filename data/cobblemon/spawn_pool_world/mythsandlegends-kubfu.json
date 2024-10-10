@@ -1,0 +1,66 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-kubfu-1",
+      "pokemon": "kubfu",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "15",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_jungle",
+          "terralith:cave/underground_jungle",
+          "wythers:dripleaf_swamp",
+          "wythers:eucalyptus_deanei_forest",
+          "wythers:highland_tropical_rainforest",
+          "wythers:humid_tropical_grassland",
+          "wythers:jungle_canyon",
+          "wythers:subtropical_forest",
+          "wythers:subtropical_forest_edge",
+          "wythers:subtropical_grassland",
+          "wythers:tropical_forest",
+          "wythers:tropical_forest_canyon",
+          "wythers:tropical_grassland",
+          "wythers:tropical_island",
+          "wythers:tropical_rainforest"
+        ],
+        "key_item": "kubfus_band"
+      }
+    },
+    {
+      "id": "mythsandlegends-kubfu-2",
+      "pokemon": "kubfu",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "15",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "wythers:bamboo_jungle_highlands",
+          "#cobblemon:is_bamboo",
+          "wythers:bamboo_jungle_canyon",
+          "wythers:bamboo_jungle_highlands",
+          "wythers:bamboo_jungle_swamp",
+          "wythers:bamboo_swamp",
+          "wythers:sakura_forest",
+          "wythers:sandy_jungle",
+          "wythers:sparse_bamboo_jungle"
+          
+        ],
+        "key_item": "kubfus_band"
+      }
+    }
+  ]
+} 

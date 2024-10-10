@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-necrozma-1",
+      "pokemon": "necrozma",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_deep_dark"
+        ],
+        "key_item": "necro_prism",
+        "shiny_stone_requirement": "3"
+      }
+    },
+    {
+      "id": "mythsandlegends-necrozma-2",
+      "pokemon": "necrozma",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "necro_prism",
+        "shiny_stone_requirement": "3"
+      }
+    }
+  ]
+} 

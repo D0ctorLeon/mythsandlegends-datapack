@@ -64,3 +64,4 @@ spyglass.json
 
 # Temporary files
 *.tmp
+/venv/

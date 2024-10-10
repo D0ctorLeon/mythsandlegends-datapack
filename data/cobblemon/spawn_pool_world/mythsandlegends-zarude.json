@@ -1,0 +1,39 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-zarude-1",
+      "pokemon": "zarude",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_jungle",
+          "terralith:cave/underground_jungle",
+          "wythers:dripleaf_swamp",
+          "wythers:eucalyptus_deanei_forest",
+          "wythers:highland_tropical_rainforest",
+          "wythers:humid_tropical_grassland",
+          "wythers:jungle_canyon",
+          "wythers:subtropical_forest",
+          "wythers:subtropical_forest_edge",
+          "wythers:subtropical_grassland",
+          "wythers:tropical_forest",
+          "wythers:tropical_forest_canyon",
+          "wythers:tropical_grassland",
+          "wythers:tropical_island",
+          "wythers:tropical_rainforest"
+        ],
+        "key_item": "zarudes_cape"
+      }
+    }
+  ]
+} 

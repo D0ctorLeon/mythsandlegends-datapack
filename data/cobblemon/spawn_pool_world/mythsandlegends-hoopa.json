@@ -1,0 +1,51 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-hoopa-1",
+      "pokemon": "hoopa",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "hoopa_ring"
+      }
+    },
+    {
+      "id": "mythsandlegends-hoopa-1",
+      "pokemon": "hoopa",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "50",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "minecraft:the_end",
+          "minecraft:end_barrens",
+          "minecraft:end_highlands",
+          "minecraft:end_midlands",
+          "minecraft:small_end_islands"
+        ],
+        "key_item": "prism_bottle"
+      }
+    }
+  ]
+} 

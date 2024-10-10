@@ -1,0 +1,94 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-regirock-1",
+      "pokemon": "regirock",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "maxY": 63,
+        "biomes": [
+          "minecraft:desert",
+          "#byg:is_desert",
+          "#c:desert",
+          "#wythers:is_desert",
+          "terralith:ancient_sands",
+          "terralith:desert_canyon",
+          "terralith:cave/desert_caves",
+          "terralith:desert_oasis",
+          "terralith:desert_spires",
+          "terralith:lush_desert",
+          "terralith:red_oasis",
+          "terralith:sandstone_valley",
+          "wythers:badlands_desert",
+          "wythers:desert_island",
+          "wythers:kwongan_heath",
+          "wythers:outback_desert",
+          "wythers:red_desert",
+          "wythers:sandy_jungle"
+  
+        ],
+        "key_item": "stone_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regirock-2",
+      "pokemon": "regirock",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "maxY": 63,
+        "biomes": [
+          "#minecraft:is_badlands",
+          "#c:mesa",
+          "terralith:ashen_savanna",
+          "terralith:red_oasis",
+          "terralith:warped_mesa",
+          "terralith:white_mesa",
+          "wythers:danakil_desert"
+        ],
+        "key_item": "stone_tablet"
+      }
+    },
+    {
+      "id": "mythsandlegends-regirock-3",
+      "pokemon": "regirock",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "maxY": 63,
+        "biomes": [
+          "#minecraft:is_badlands",
+          "#c:mesa",
+          "terralith:ashen_savanna",
+          "terralith:red_oasis",
+          "terralith:warped_mesa",
+          "terralith:white_mesa",
+          "wythers:danakil_desert"
+        ],
+        "key_item": "ancient_tablet"
+      }
+    }
+  ]
+} 

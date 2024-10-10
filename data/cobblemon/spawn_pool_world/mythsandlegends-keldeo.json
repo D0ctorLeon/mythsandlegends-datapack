@@ -1,0 +1,71 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-keldeo-1",
+      "pokemon": "keldeo",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_hill",
+          "#cobblemon:is_highlands",
+          "#c:mountain_slope",
+          "#forge:is_slope",
+          "terralith:blooming_valley",
+          "terralith:forested_highlands",
+          "terralith:lavender_valley",
+          "terralith:lush_valley",
+          "terralith:moonlight_valley",
+          "terralith:sakura_valley",
+          "terralith:savanna_slopes",
+          "terralith:temperate_highlands",
+          "terralith:yosemite_lowlands",
+          "wythers:autumnal_crags",
+          "wythers:ayers_rock",
+          "wythers:icy_crags",
+          "wythers:old_growth_taiga_crags",
+          "wythers:taiga_crags",
+          "wythers:temperate_rainforest_crags",
+          "wythers:thermal_taiga_crags",
+          "wythers:windswept_jungle"          
+        ],
+        "key_item": "sacred_sword"
+      }
+    },
+    {
+      "id": "mythsandlegends-keldeo-2",
+      "pokemon": "keldeo",
+      "presets": [
+        "natural"
+      ],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#minecraft:is_mountain",
+          "#cobblemon:is_hills",
+          "#forge:is_mountain",
+          "terralith:stony_spires",
+          "terralith:volcanic_peaks",
+          "terralith:windswept_spires",
+          "terralith:yosemite_cliffs",
+          "wythers:tibesti_mountains"
+          
+        ],
+        "key_item": "sacred_sword"
+      }
+    }
+  ]
+} 
