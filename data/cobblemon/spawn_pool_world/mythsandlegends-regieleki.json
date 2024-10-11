@@ -4,8 +4,8 @@
   "neededUninstalledMods": [],
   "spawns": [
     {
-      "id": "mythsandlegends-regeleki-1",
-      "pokemon": "regeleki",
+      "id": "mythsandlegends-regieleki-1",
+      "pokemon": "regieleki",
       "presets": [
         "natural"
       ],
@@ -22,8 +22,8 @@
       }
     },
     {
-      "id": "mythsandlegends-regeleki-2",
-      "pokemon": "regeleki",
+      "id": "mythsandlegends-regieleki-2",
+      "pokemon": "regieleki",
       "presets": [
         "natural"
       ],
