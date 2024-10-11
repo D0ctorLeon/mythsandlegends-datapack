@@ -37,7 +37,7 @@
         "biomes": [
           "minecraft:woodland_mansion",
           "minecraft:swamp_hut",
-          "minecraft:pillager_outpost "
+          "minecraft:pillager_outpost"
         ],
         "key_item": "mythical_pecha_berry"
       }
