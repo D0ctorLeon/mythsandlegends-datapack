@@ -1,0 +1,43 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-spectrier-1",
+      "pokemon": "spectrier",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_forest",
+          "#cobblemon:is_dark_forest",
+          "#cobblemon:is_plains"
+        ],
+        "key_item": "shaderoot_carrot"
+      }
+    },
+    {
+      "id": "mythsandlegends-spectrier-2",
+      "pokemon": "spectrier",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "70",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_forest",
+          "#cobblemon:is_spooky",
+          "#cobblemon:is_plains"
+        ],
+        "key_item": "shaderoot_carrot"
+      }
+    }
+  ]
+}
