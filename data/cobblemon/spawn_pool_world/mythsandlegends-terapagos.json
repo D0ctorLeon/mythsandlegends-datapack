@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "mythsandlegends-terapagos-1",
+      "pokemon": "terapagos",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "75",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_mountain",
+          "#cobblemon:is_magical",
+          "#cobblemon:is_river",
+          "#cobblemon:is_jungle"
+        ],
+        "key_item": "prismatic_shell"
+      }
+    },
+    {
+      "id": "mythsandlegends-terapagos-2",
+      "pokemon": "terapagos",
+      "presets": [],
+      "type": "pokemon",
+      "context": "grounded",
+      "bucket": "ultra-rare",
+      "level": "75",
+      "weight": 0.1,
+      "condition": {
+        "biomes": [
+          "#cobblemon:is_mountain",
+          "#cobblemon:is_magical",
+          "#cobblemon:is_river",
+          "#cobblemon:is_jungle"
+        ],
+        "key_item": "prismatic_shell"
+      }
+    }
+  ]
+}
