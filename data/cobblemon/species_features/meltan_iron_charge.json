@@ -1,0 +1,18 @@
+{
+  "type": "integer",
+  "keys": ["meltan_iron_charge"],
+  "default": 0,
+  "min": 0,
+  "max": 999,
+  "visible": true,
+  "display": {
+    "name": "myths_and_legends.ui.meltan_iron_charge",
+    "colour": [229, 189, 29],
+    "underlay": "cobblemon:textures/gui/summary/summary_stats_other_bar.png",
+    "overlay": "cobblemon:textures/gui/summary/summary_stats_coin_overlay.png"
+  },
+  "itemPoints": {
+    "minecraft:iron_ingot": 1,
+    "minecraft:iron_block": 10
+  }
+}

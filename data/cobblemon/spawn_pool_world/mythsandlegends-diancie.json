@@ -15,7 +15,8 @@
       "level": "70",
       "weight": 0.1,
       "condition": {
-        "maxY": -61,
+        "maxY": 10,
+        "minY": -64,
         "biomes": [
           "#cobblemon:is_cave"   
         ],
@@ -34,7 +35,8 @@
       "level": "70",
       "weight": 0.1,
       "condition": {
-        "maxY": -61,
+        "maxY": 10,
+        "minY": -64,
         "biomes": [
           "minecraft:dripstone_caves",
           "minecraft:lush_caves",
