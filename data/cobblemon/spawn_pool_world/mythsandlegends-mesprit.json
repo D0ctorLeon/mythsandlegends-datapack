@@ -23,7 +23,7 @@
           "#forge:is_swamp",
           "#wythers:is_swamp",
           "terralith:ice_marsh",
-          "terralith:orchid_swampc",
+          "terralith:orchid_swamp",
           "wythers:billabong"
         ],
         "key_item": "mesprit_plume"
