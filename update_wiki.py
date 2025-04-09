@@ -1,20 +1,19 @@
-# update_wiki.py (Python script)
 import dokuwikixmlrpc
 import os
 import json
 from pathlib import Path
 import ssl
 import logging
-import re # Import regular expressions
+import re
 
 # --- Configuration ---
 WIKI_URL = os.environ["DOKUWIKI_API_URL"]
 WIKI_USER = os.environ["DOKUWIKI_USER"]
 WIKI_PASSWORD = os.environ["DOKUWIKI_PASSWORD"]
-REPO_ROOT = os.environ["GITHUB_WORKSPACE"] # get the github workspace path
-ITEM_WIKI_PAGE_ID = "mythsandlegends:items" # ID of the page with item icons
-POKEDEX_DATA_FILE = "pokedex_data.json" # Path to your Pokedex data file
-SPAWN_INFO_NAMESPACE = "spawn-info" # Namespace for the generated pages
+REPO_ROOT = os.environ["GITHUB_WORKSPACE"] # Github workspace path
+ITEM_WIKI_PAGE_ID = "mythsandlegends:items" # Page with item icons
+POKEDEX_DATA_FILE = "pokedex_data.json" # Pokedex data file
+SPAWN_INFO_NAMESPACE = "spawn-info" # Namespace for generated pages
 
 # Disable SSL verification (USE WITH CAUTION)
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -29,7 +28,6 @@ def load_pokemon_data(filepath):
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # Ensure keys are lowercase for consistent lookup
             return {k.lower(): v for k, v in data.items()}
     except FileNotFoundError:
         logging.error(f"Pokedex data file not found: {filepath}")
@@ -45,11 +43,8 @@ def fetch_and_parse_item_icons(rpc, page_id):
     """Fetches a DokuWiki page and parses the item table for icons."""
     item_icon_map = {}
     try:
-        content = rpc.get_page(page_id)
-        # Regex to find table rows: Icon | Name | Identifier | ...
-        # Captures: 1=Icon Markup, 2=Identifier (mythsandlegends:...)
-        # Adjusted regex to be more robust against whitespace variations and code tags
-        # It looks for the icon, skips columns until it finds `mythsandlegends:`, then captures the identifier.
+        content = rpc.getPage(page_id) # Use getPage which maps to wiki.getPage
+        # Regex adjusted for robustness
         pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
 
         for match in pattern.finditer(content):
@@ -74,116 +69,90 @@ def fetch_and_parse_item_icons(rpc, page_id):
 
 def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map):
     """Creates or updates a wiki page with spawn information."""
-    # Use the configured namespace
     full_page_name = f"{SPAWN_INFO_NAMESPACE}:{page_name}"
     logging.info(f"Processing page: {full_page_name}")
 
-    # Basic Pokemon Info (handle potential missing data)
     first_spawn = data.get("spawns", [{}])[0]
     pokemon_name_raw = first_spawn.get("pokemon", "UnknownPokemon")
     pokemon_name_lower = pokemon_name_raw.lower()
     pokemon_name_display = pokemon_name_raw.capitalize()
 
-    # Look up Pokedex data
     poke_info = pokemon_data.get(pokemon_name_lower, {})
     pokedex_num = poke_info.get("pokedex", "N/A")
     generation = poke_info.get("generation", "N/A")
     if pokedex_num == "N/A":
         logging.warning(f"Pokedex data not found for: {pokemon_name_lower}")
 
-    # Start building content
     content = f"===== {pokemon_name_display} =====\n\n"
     content += f"**Pokédex Number:** {pokedex_num}\n"
     content += f"**Generation:** {generation}\n\n"
 
-    # Group spawns by key_item
     spawns_by_key_item = {}
     for spawn in data.get("spawns", []):
-        # Default to "None" or "Unknown" if key_item is missing or empty
         key_item_id = spawn.get("condition", {}).get("key_item")
-        if not key_item_id: # Handles None or empty string
+        if not key_item_id:
              key_item_id = "None"
         spawns_by_key_item.setdefault(key_item_id, []).append(spawn)
 
-    # Iterate over key items and their associated spawns
     for key_item_id, spawns in spawns_by_key_item.items():
-        # Get item icon and formatted name
-        item_icon = item_icon_map.get(key_item_id, "") # Get icon markup or empty string
-        # Format name from ID if not 'None'
+        item_icon = item_icon_map.get(key_item_id, "")
         key_items_display = key_item_id.replace("mythsandlegends:", "").replace("_", " ").title() if key_item_id != "None" else "None"
 
-        content += f"\n===== {item_icon} {key_items_display} =====\n" # Add icon before the name
+        content += f"\n===== {item_icon} {key_items_display} =====\n"
 
-        # Combine biomes from all spawns with this key item
-        all_biomes = set() # Use a set for automatic uniqueness
+        all_biomes = set()
         for spawn in spawns:
-             # Ensure 'condition' and 'biomes' exist and biomes is iterable
             condition = spawn.get("condition", {})
             biomes = condition.get("biomes", [])
-            if isinstance(biomes, list): # Check if it's a list
-                 all_biomes.update(biomes) # Add items from the list to the set
-            elif isinstance(biomes, str): # Handle if it's just a string biome
+            if isinstance(biomes, list):
+                 all_biomes.update(biomes)
+            elif isinstance(biomes, str):
                  all_biomes.add(biomes)
 
-
-        # Use the first spawn for common details (assuming they are consistent per key item)
-        # If spawns list is empty, provide default values
         combined_spawn = spawns[0] if spawns else {}
         condition_data = combined_spawn.get("condition", {})
 
-        # Extract details safely using .get()
         presets = ", ".join(combined_spawn.get("presets", ["N/A"]))
         context = combined_spawn.get("context", "N/A")
         bucket = combined_spawn.get("bucket", "N/A")
         level = combined_spawn.get("level", "N/A")
-        weight = combined_spawn.get("weight", "N/A") # Weight might be specific per spawn entry, consider how to represent if it varies.
+        weight = combined_spawn.get("weight", "N/A")
 
-        # Add common details (if not already added globally, decide structure)
-        # content += f"**Species:** {pokemon_name_display}\n" # Already at the top
         content += f"**Presets:** {presets}\n"
-        if context and context != "N/A": # Only show context if it exists
+        if context and context != "N/A":
             content += f"**Context:** {context}\n"
         content += f"**Spawn Bucket:** {bucket}\n"
         content += f"**Level Range:** {level}\n"
-        content += f"**Weight:** {weight}\n" # Note: This takes the weight of the *first* spawn listed for this key item.
+        content += f"**Weight:** {weight}\n"
 
-        # Biomes table for this key item
         if all_biomes:
             content += "\n^ Biomes ^\n"
-            # Sort biomes alphabetically for consistency
             for biome in sorted(list(all_biomes)):
-                content += f"| {biome.strip()} |\n" # Ensure no leading/trailing whitespace
+                content += f"| {biome.strip()} |\n"
         else:
-            content += "**Biomes:** N/A\n" # Indicate if no biomes are specified
+            content += "**Biomes:** N/A\n"
 
-
-        # Additional Conditions table
         other_conditions = {
             k: v
             for k, v in condition_data.items()
-            # Exclude known keys and keys with falsey values (None, empty string, etc.)
             if k not in ("biomes", "key_item") and v
         }
         if other_conditions:
-            content += "\n^ Additional Conditions ^ Value ^\n"  # Table header
-            for condition, value in sorted(other_conditions.items()): # Sort for consistency
-                 # Handle list values (like 'times') gracefully
+            content += "\n^ Additional Conditions ^ Value ^\n"
+            for condition, value in sorted(other_conditions.items()):
                 value_str = ", ".join(value) if isinstance(value, list) else str(value)
                 content += f"| {condition.replace('_',' ').title()} | {value_str} |\n"
 
-    # Add a final newline for spacing
     content += "\n"
 
     try:
-        # Check if page exists before putting content
-        # page_info = rpc.get_page_info(full_page_name) # Optional: Check if exists
-        rpc.put_page(full_page_name, content, summary="Automatic update from datapack repository")
+        # Use putPage which maps to wiki.putPage
+        rpc.putPage(full_page_name, content, summary="Automatic update from datapack repository")
         logging.info(f"Successfully updated wiki page: {full_page_name}")
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki XMLRPC Error updating page '{full_page_name}': {e}")
     except Exception as e:
         logging.error(f"Failed to update wiki page '{full_page_name}': {e}")
-
 
 def process_repository(rpc, root_path, pokemon_data, item_icon_map):
     """Processes JSON files in the spawn pool directory."""
@@ -205,20 +174,16 @@ def process_repository(rpc, root_path, pokemon_data, item_icon_map):
             with open(json_file, "r", encoding='utf-8') as file:
                 data = json.load(file)
 
-                # Basic validation: Check if 'spawns' key exists and is a non-empty list
                 if "spawns" not in data or not isinstance(data["spawns"], list) or not data["spawns"]:
                     logging.warning(f"Skipping {json_file.name}: 'spawns' key missing, not a list, or empty.")
                     continue
 
-                # Basic validation: Check if the first spawn has a 'pokemon' key
                 if "pokemon" not in data["spawns"][0] or not data["spawns"][0]["pokemon"]:
                      logging.warning(f"Skipping {json_file.name}: 'pokemon' key missing or empty in the first spawn.")
                      continue
 
-                # Use the Pokemon name from the first spawn entry for the page title
                 pokemon_name = data["spawns"][0]["pokemon"].capitalize()
-                # Use the raw pokemon name (or a generated ID) for the page ID to avoid issues with special chars
-                page_id_name = data["spawns"][0]["pokemon"].lower().replace(':','_').replace(' ','_') # Make it filename safe
+                page_id_name = data["spawns"][0]["pokemon"].lower().replace(':','_').replace(' ','_')
 
                 create_or_update_wiki_page(rpc, page_id_name, data, pokemon_data, item_icon_map)
 
@@ -234,44 +199,36 @@ def process_repository(rpc, root_path, pokemon_data, item_icon_map):
 if __name__ == "__main__":
     logging.info("Starting DokuWiki update script.")
 
-    # Validate environment variables
     if not all([WIKI_URL, WIKI_USER, WIKI_PASSWORD, REPO_ROOT]):
-        logging.error("Missing one or more required environment variables (DOKUWIKI_API_URL, DOKUWIKI_USER, DOKUWIKI_PASSWORD, GITHUB_WORKSPACE). Exiting.")
+        logging.error("Missing required environment variables. Exiting.")
         exit(1)
 
-    # Initialize the XML-RPC client (closer to old style: no try/except here)
-    # If this line fails, the script will crash immediately with the raw error.
-    # This might provide a clearer traceback than the previous version.
-    logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
+    rpc = None
     try:
-            rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
-            logging.info("DokuWikiClient object created successfully.")
+        logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
+        rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
+        logging.info("DokuWikiClient object created successfully.")
 
+        logging.info("Attempting to verify connection using getVersion()...")
+        version = rpc.getVersion() # Use the legacy API call
+        logging.info(f"Successfully connected to DokuWiki. Version reported: {version}")
 
-            logging.info("Attempting to verify connection using getVersion()...")
-            version = rpc.getVersion() # Use the legacy API call name
-            logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}. Version reported: {version}")
+    except dokuwikixmlrpc.DokuWikiError as e:
+        logging.error(f"DokuWiki API Error during connection verification: {e}")
+        exit(1)
+    except Exception as e:
+        logging.error(f"Failed to initialize or verify DokuWiki client: {e}")
+        logging.error(f"Exception type: {type(e).__name__}")
+        exit(1)
 
-        except TypeError as e:
-            # This specific error message might change now, or the error might disappear
-            logging.error(f"TypeError during DokuWiki operation (check method name?): {e}")
-            logging.error(f"rpc object type: {type(rpc)}") # Log the type of rpc to be sure
-            # If the error persists on getVersion, try other methods like core.getWikiVersion
-            exit(1)
-        except dokuwikixmlrpc.DokuWikiError as e:
-            # Catch specific DokuWiki errors (like authentication)
-            logging.error(f"DokuWiki API Error during connection verification: {e}")
-            exit(1)
-        except Exception as e:
-            # Catch other potential errors (network, etc.)
-            logging.error(f"Failed to verify DokuWiki client connection: {e}")
-            logging.error(f"Exception type: {type(e).__name__}")
-            exit(1)
+    # Ensure rpc was initialized
+    if rpc is None:
+         logging.error("RPC client could not be initialized. Exiting.")
+         exit(1)
 
-    # --- The rest of your script logic remains the same ---
     # Load external data
     pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
-    item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID) # Pass the created rpc
+    item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
 
     if not pokemon_data:
         logging.warning("Pokedex data is empty. Pokédex numbers and generations will be 'N/A'.")
@@ -279,6 +236,6 @@ if __name__ == "__main__":
         logging.warning("Item icon map is empty. Icons will not be displayed.")
 
     # Process the repository
-    process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map) # Pass the created rpc
+    process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
 
     logging.info("DokuWiki update script finished.")
