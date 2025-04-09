@@ -14,22 +14,42 @@ jobs:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3  # Use the latest version of checkout action
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Use v4 or newer
 
-    - name: Set up Python
-      uses: actions/setup-python@v5  # Use the latest version of setup-python action
-      with:
-        python-version: '3.x'  # Use Python 3.x
+      - name: Set up Python
+        uses: actions/setup-python@v5 # Use v5 or newer
+        with:
+          python-version: '3.x'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip  # Upgrade pip
-        pip install dokuwikixmlrpc  # Install the necessary library for DokuWiki interaction
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dokuwikixmlrpc
 
-    - name: Run update script
-      env:
-        DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}  # DokuWiki API URL from secrets
-        DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}  # DokuWiki username from secrets
-        DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}  # DokuWiki password from secrets
-      run: python update_wiki.py  # Run the Python script to update DokuWiki
+      # ---- NEW STEPS TO INSTALL CA CERTIFICATE ----
+      - name: Write CA Cert from Secret
+        # Check if the secret exists before proceeding
+        if: ${{ secrets.WIKI_CA_CERT != '' }}
+        run: echo "${{ secrets.WIKI_CA_CERT }}" > custom_ca.crt
+
+      - name: Install CA Cert
+        # Only run if the file was created in the previous step
+        if: steps.write_ca_cert.outcome == 'success'
+        run: |
+          echo "Adding custom CA certificate to system trust store..."
+          sudo cp custom_ca.crt /usr/local/share/ca-certificates/custom_ca.crt
+          sudo update-ca-certificates
+          echo "Certificate update complete."
+          # Optional: Verify the certificate was added (useful for debugging)
+          # ls -l /etc/ssl/certs/custom_ca*
+          # openssl x509 -in /etc/ssl/certs/custom_ca.pem -noout -subject # Requires .pem format if using this command
+        # Use sudo because modifying system certs requires root privileges
+      # ---- END OF NEW STEPS ----
+
+      - name: Run update script
+        env:
+          DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}
+          DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}
+          DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}
+        run: python update_wiki.py
