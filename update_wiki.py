@@ -240,18 +240,23 @@ if __name__ == "__main__":
         exit(1)
 
     # Initialize the XML-RPC client
+    rpc = None # Initialize rpc to None outside the try block
     try:
-        #
         rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
         # Optional: Verify connection with a simple call
-        #
         rpc.dokuwiki_version()
-        #
         logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}")
     # Correctly aligned with 'try'
     except Exception as e:
         logging.error(f"Failed to initialize DokuWiki client: {e}")
-        exit(1)
+        # Optionally log the type of exception for more detail:
+        # logging.error(f"Exception type: {type(e).__name__}")
+        exit(1) # Exit if connection fails
+
+    # Check if rpc was successfully initialized before proceeding
+    if rpc is None:
+         logging.error("RPC client was not initialized. Exiting.")
+         exit(1)
 
     # Load external data
     pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
