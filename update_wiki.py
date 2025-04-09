@@ -41,7 +41,7 @@ def load_pokemon_data(filepath):
 def fetch_and_parse_item_icons(rpc, page_id):
     item_icon_map = {}
     try:
-        content = rpc.wiki.getPage(page_id)
+        content = rpc.call("wiki.getPage", page_id)
         pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
         for match in pattern.finditer(content):
             icon_markup = match.group(1).strip()
@@ -140,7 +140,7 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
     content += "\n"
 
     try:
-        rpc.wiki.putPage(full_page_name, content, summary="Automatic update from datapack repository")
+        rpc.call("wiki.putPage", full_page_name, content, {"sum": "Automatic update from datapack repository"})
         logging.info(f"Successfully updated wiki page: {full_page_name}")
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki XMLRPC Error updating page '{full_page_name}': {e}")
