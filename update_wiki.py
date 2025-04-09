@@ -244,25 +244,29 @@ if __name__ == "__main__":
     # This might provide a clearer traceback than the previous version.
     logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
     try:
-        # *** This is the critical line ***
-        rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
-        logging.info("DokuWikiClient object created successfully.")
+            rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
+            logging.info("DokuWikiClient object created successfully.")
 
-        # Now, separately, verify the connection works using the created rpc object
-        version = rpc.dokuwiki_version()
-        logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}. Version: {version}")
 
-    except TypeError as e:
-        # Specifically catch the TypeError we are seeing
-        logging.error(f"TypeError during DokuWiki client initialization or version check: {e}")
-        logging.error("This likely means 'DokuWikiClient' is not being recognized as a class.")
-        logging.error("Check for variable name conflicts or installation issues with 'dokuwikixmlrpc'.")
-        exit(1)
-    except Exception as e:
-        # Catch other potential errors (network, authentication, etc.)
-        logging.error(f"Failed to initialize or verify DokuWiki client: {e}")
-        logging.error(f"Exception type: {type(e).__name__}")
-        exit(1)
+            logging.info("Attempting to verify connection using getVersion()...")
+            version = rpc.getVersion() # Use the legacy API call name
+            logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}. Version reported: {version}")
+
+        except TypeError as e:
+            # This specific error message might change now, or the error might disappear
+            logging.error(f"TypeError during DokuWiki operation (check method name?): {e}")
+            logging.error(f"rpc object type: {type(rpc)}") # Log the type of rpc to be sure
+            # If the error persists on getVersion, try other methods like core.getWikiVersion
+            exit(1)
+        except dokuwikixmlrpc.DokuWikiError as e:
+            # Catch specific DokuWiki errors (like authentication)
+            logging.error(f"DokuWiki API Error during connection verification: {e}")
+            exit(1)
+        except Exception as e:
+            # Catch other potential errors (network, etc.)
+            logging.error(f"Failed to verify DokuWiki client connection: {e}")
+            logging.error(f"Exception type: {type(e).__name__}")
+            exit(1)
 
     # --- The rest of your script logic remains the same ---
     # Load external data
