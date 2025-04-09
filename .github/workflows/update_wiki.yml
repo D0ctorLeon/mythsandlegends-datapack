@@ -11,14 +11,14 @@ on:
 
 jobs:
   update-wiki:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # Use v4 or newer
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5 # Use v5 or newer
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -27,25 +27,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install dokuwikixmlrpc
 
-      # ---- NEW STEPS TO INSTALL CA CERTIFICATE ----
       - name: Write CA Cert from Secret
-        # Check if the secret exists before proceeding
-        if: ${{ secrets.WIKI_CA_CERT != '' }}
+        if: secrets.WIKI_CA_CERT != ''
+        id: write_ca_cert
         run: echo "${{ secrets.WIKI_CA_CERT }}" > custom_ca.crt
 
       - name: Install CA Cert
-        # Only run if the file was created in the previous step
+
         if: steps.write_ca_cert.outcome == 'success'
         run: |
           echo "Adding custom CA certificate to system trust store..."
           sudo cp custom_ca.crt /usr/local/share/ca-certificates/custom_ca.crt
           sudo update-ca-certificates
           echo "Certificate update complete."
-          # Optional: Verify the certificate was added (useful for debugging)
-          # ls -l /etc/ssl/certs/custom_ca*
-          # openssl x509 -in /etc/ssl/certs/custom_ca.pem -noout -subject # Requires .pem format if using this command
-        # Use sudo because modifying system certs requires root privileges
-      # ---- END OF NEW STEPS ----
 
       - name: Run update script
         env:
