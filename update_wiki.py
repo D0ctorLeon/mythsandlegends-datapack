@@ -17,7 +17,7 @@ SPAWN_INFO_NAMESPACE = "spawn-info"
 
 # Disable SSL verification (USE WITH CAUTION - only if necessary and you trust the server)
 # Consider properly configuring certificate verification instead if possible.
- ssl._create_default_https_context = ssl._create_unverified_context
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
