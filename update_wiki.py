@@ -47,7 +47,7 @@ def fetch_and_parse_item_icons(rpc: dokuwikixmlrpc.DokuWikiClient, page_id: str)
     logging.info(f"Attempting to fetch item icons from wiki page: '{page_id}'")
     try:
         # --- CORRECTED LINE ---
-        content = rpc.wiki_getPage(page_id)
+        content = rpc.call("wiki.getPage", page_id)
         # Regex to find lines like: ^ Icon | Name | `myths:item_id` | Desc ^
         # It extracts the Icon markup {{...}} and the item_id `myths:...`
         # Adjust the regex pattern if your wiki table format is different.
@@ -210,7 +210,7 @@ def create_or_update_wiki_page(rpc: dokuwikixmlrpc.DokuWikiClient, page_name: st
     try:
         logging.info(f"Attempting to update wiki page: {full_page_name}")
         # --- CORRECTED LINE ---
-        success = rpc.wiki_putPage(full_page_name, content, {"sum": "Automatic update from datapack repository"})
+        content = rpc.call("wiki.getPage", page_id)
         if success:
              logging.info(f"Successfully updated wiki page: {full_page_name}")
         else:
