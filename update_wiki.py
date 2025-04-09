@@ -239,28 +239,35 @@ if __name__ == "__main__":
         logging.error("Missing one or more required environment variables (DOKUWIKI_API_URL, DOKUWIKI_USER, DOKUWIKI_PASSWORD, GITHUB_WORKSPACE). Exiting.")
         exit(1)
 
-    # Initialize the XML-RPC client
-    rpc = None # Initialize rpc to None outside the try block
+    # Initialize the XML-RPC client (closer to old style: no try/except here)
+    # If this line fails, the script will crash immediately with the raw error.
+    # This might provide a clearer traceback than the previous version.
+    logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
     try:
+        # *** This is the critical line ***
         rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
-        # Optional: Verify connection with a simple call
-        rpc.dokuwiki_version()
-        logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}")
-    # Correctly aligned with 'try'
+        logging.info("DokuWikiClient object created successfully.")
+
+        # Now, separately, verify the connection works using the created rpc object
+        version = rpc.dokuwiki_version()
+        logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}. Version: {version}")
+
+    except TypeError as e:
+        # Specifically catch the TypeError we are seeing
+        logging.error(f"TypeError during DokuWiki client initialization or version check: {e}")
+        logging.error("This likely means 'DokuWikiClient' is not being recognized as a class.")
+        logging.error("Check for variable name conflicts or installation issues with 'dokuwikixmlrpc'.")
+        exit(1)
     except Exception as e:
-        logging.error(f"Failed to initialize DokuWiki client: {e}")
-        # Optionally log the type of exception for more detail:
-        # logging.error(f"Exception type: {type(e).__name__}")
-        exit(1) # Exit if connection fails
+        # Catch other potential errors (network, authentication, etc.)
+        logging.error(f"Failed to initialize or verify DokuWiki client: {e}")
+        logging.error(f"Exception type: {type(e).__name__}")
+        exit(1)
 
-    # Check if rpc was successfully initialized before proceeding
-    if rpc is None:
-         logging.error("RPC client was not initialized. Exiting.")
-         exit(1)
-
+    # --- The rest of your script logic remains the same ---
     # Load external data
     pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
-    item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
+    item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID) # Pass the created rpc
 
     if not pokemon_data:
         logging.warning("Pokedex data is empty. Pokédex numbers and generations will be 'N/A'.")
@@ -268,6 +275,6 @@ if __name__ == "__main__":
         logging.warning("Item icon map is empty. Icons will not be displayed.")
 
     # Process the repository
-    process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
+    process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map) # Pass the created rpc
 
     logging.info("DokuWiki update script finished.")
