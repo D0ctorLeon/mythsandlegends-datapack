@@ -209,9 +209,10 @@ if __name__ == "__main__":
         rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
         logging.info("DokuWikiClient object created successfully.")
 
-        logging.info("Attempting to verify connection using getVersion()...")
-        version = rpc.getVersion() # Use the legacy API call
-        logging.info(f"Successfully connected to DokuWiki. Version reported: {version}")
+        logging.info("Attempting to verify connection using dokuwiki_version() and rpc_version_supported()...")
+        version = rpc.dokuwiki_version()
+        api_version = rpc.rpc_version_supported()
+        logging.info(f"Connected to DokuWiki. Version: {version}, API Version: {api_version}")
 
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki API Error during connection verification: {e}")
