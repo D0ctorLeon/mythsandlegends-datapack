@@ -43,7 +43,7 @@ def fetch_and_parse_item_icons(rpc, page_id):
     """Fetches a DokuWiki page and parses the item table for icons."""
     item_icon_map = {}
     try:
-        content = rpc.getPage(page_id) # Use getPage which maps to wiki.getPage
+        content = rpc.wiki.getPage(page_id) # Use getPage which maps to wiki.getPage
         # Regex adjusted for robustness
         pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
 
@@ -147,7 +147,7 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
 
     try:
         # Use putPage which maps to wiki.putPage
-        rpc.putPage(full_page_name, content, summary="Automatic update from datapack repository")
+        rpc.wiki.putPage(full_page_name, content, summary="Automatic update from datapack repository")
         logging.info(f"Successfully updated wiki page: {full_page_name}")
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki XMLRPC Error updating page '{full_page_name}': {e}")
