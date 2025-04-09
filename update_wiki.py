@@ -210,8 +210,8 @@ if __name__ == "__main__":
         logging.info("DokuWikiClient object created successfully.")
 
         logging.info("Attempting to verify connection using dokuwiki_version() and rpc_version_supported()...")
-        version = rpc.dokuwiki_version()
-        api_version = rpc.rpc_version_supported()
+        version = rpc.dokuwiki_version
+        api_version = rpc.rpc_version_supported
         logging.info(f"Connected to DokuWiki. Version: {version}, API Version: {api_version}")
 
     except dokuwikixmlrpc.DokuWikiError as e:
