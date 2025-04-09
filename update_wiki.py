@@ -41,7 +41,7 @@ def load_pokemon_data(filepath):
 def fetch_and_parse_item_icons(rpc, page_id):
     item_icon_map = {}
     try:
-        content = rpc.call("wiki.getPage", page_id)
+        content = rpc.method("wiki.getPage", page_id)
         pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
         for match in pattern.finditer(content):
             icon_markup = match.group(1).strip()
@@ -103,7 +103,6 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
         combined_spawn = spawns[0] if spawns else {}
         condition_data = combined_spawn.get("condition", {})
 
-        # Preset formatting fix for possible dicts
         presets_raw = combined_spawn.get("presets", ["N/A"])
         presets = ", ".join([p if isinstance(p, str) else json.dumps(p) for p in presets_raw])
 
@@ -127,9 +126,7 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
             content += "**Biomes:** N/A\n"
 
         other_conditions = {
-            k: v
-            for k, v in condition_data.items()
-            if k not in ("biomes", "key_item") and v
+            k: v for k, v in condition_data.items() if k not in ("biomes", "key_item") and v
         }
         if other_conditions:
             content += "\n^ Additional Conditions ^ Value ^\n"
@@ -140,7 +137,7 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
     content += "\n"
 
     try:
-        rpc.call("wiki.putPage", full_page_name, content, {"sum": "Automatic update from datapack repository"})
+        rpc.method("wiki.putPage", full_page_name, content, {"sum": "Automatic update from datapack repository"})
         logging.info(f"Successfully updated wiki page: {full_page_name}")
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki XMLRPC Error updating page '{full_page_name}': {e}")
@@ -194,37 +191,30 @@ if __name__ == "__main__":
         logging.error("Missing required environment variables. Exiting.")
         exit(1)
 
-    rpc = None
     try:
         logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
         rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
         logging.info("DokuWikiClient object created successfully.")
 
         logging.info("Attempting to verify connection using dokuwiki_version() and rpc_version_supported()...")
-        version = rpc.dokuwiki_version
+        version = rpc.dokuwiki_version()
         api_version = rpc.rpc_version_supported()
         logging.info(f"Connected to DokuWiki. Version: {version}, API Version: {api_version}")
 
-    except dokuwikixmlrpc.DokuWikiError as e:
-        logging.error(f"DokuWiki API Error during connection verification: {e}")
-        exit(1)
+        # Load external data
+        pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
+        item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
+
+        if not pokemon_data:
+            logging.warning("Pokedex data is empty. Pokédex numbers and generations will be 'N/A'.")
+        if not item_icon_map:
+            logging.warning("Item icon map is empty. Icons will not be displayed.")
+
+        process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
+
     except Exception as e:
-        logging.error(f"Failed to initialize or verify DokuWiki client: {e}")
+        logging.error(f"Fatal error: {e}")
         logging.error(f"Exception type: {type(e).__name__}")
         exit(1)
-
-    if rpc is None:
-        logging.error("RPC client could not be initialized. Exiting.")
-        exit(1)
-
-    pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
-    item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
-
-    if not pokemon_data:
-        logging.warning("Pokedex data is empty. Pokédex numbers and generations will be 'N/A'.")
-    if not item_icon_map:
-        logging.warning("Item icon map is empty. Icons will not be displayed.")
-
-    process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
 
     logging.info("DokuWiki update script finished.")
