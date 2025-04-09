@@ -1,0 +1,306 @@
+{
+  "dialga": {
+    "pokedex": 483,
+    "generation": 4
+  },
+  "palkia": {
+    "pokedex": 484,
+    "generation": 4
+  },
+  "giratina": {
+    "pokedex": 487,
+    "generation": 4
+  },
+  "deoxys": {
+    "pokedex": 386,
+    "generation": 3
+  },
+  "arceus": {
+    "pokedex": 493,
+    "generation": 4
+  },
+  "kyogre": {
+    "pokedex": 382,
+    "generation": 3
+  },
+  "jirachi": {
+    "pokedex": 385,
+    "generation": 3
+  },
+  "ho-oh": {
+    "pokedex": 250,
+    "generation": 2
+  },
+  "kyurem": {
+    "pokedex": 646,
+    "generation": 5
+  },
+  "reshiram": {
+    "pokedex": 643,
+    "generation": 5
+  },
+  "zekrom": {
+    "pokedex": 644,
+    "generation": 5
+  },
+  "latias": {
+    "pokedex": 380,
+    "generation": 3
+  },
+  "latios": {
+    "pokedex": 381,
+    "generation": 3
+  },
+  "celebi": {
+    "pokedex": 251,
+    "generation": 2
+  },
+  "rayquaza": {
+    "pokedex": 384,
+    "generation": 3
+  },
+  "victini": {
+    "pokedex": 494,
+    "generation": 5
+  },
+  "darkrai": {
+    "pokedex": 491,
+    "generation": 4
+  },
+  "shaymin": {
+    "pokedex": 492,
+    "generation": 4
+  },
+  "mew": {
+    "pokedex": 151,
+    "generation": 1
+  },
+  "groudon": {
+    "pokedex": 383,
+    "generation": 3
+  },
+  "zamazenta": {
+    "pokedex": 889,
+    "generation": 8
+  },
+  "zacian": {
+    "pokedex": 888,
+    "generation": 8
+  },
+  "lugia": {
+    "pokedex": 249,
+    "generation": 2
+  },
+  "mewtwo": {
+    "pokedex": 150,
+    "generation": 1
+  },
+  "koraidon": {
+    "pokedex": 1007,
+    "generation": 9
+  },
+  "miraidon": {
+    "pokedex": 1008,
+    "generation": 9
+  },
+  "yveltal": {
+    "pokedex": 717,
+    "generation": 6
+  },
+  "xerneas": {
+    "pokedex": 716,
+    "generation": 6
+  },
+  "meltan": {
+    "pokedex": 808,
+    "generation": 7
+  },
+  "tornadus": {
+    "pokedex": 641,
+    "generation": 5
+  },
+  "thundurus": {
+    "pokedex": 642,
+    "generation": 5
+  },
+  "landorus": {
+    "pokedex": 645,
+    "generation": 5
+  },
+  "enamorus": {
+    "pokedex": 905,
+    "generation": 8
+  },
+  "ogerpon": {
+    "pokedex": 1017,
+    "generation": 9
+  },
+  "solgaleo": {
+    "pokedex": 791,
+    "generation": 7
+  },
+  "lunala": {
+    "pokedex": 792,
+    "generation": 7
+  },
+  "cresselia": {
+    "pokedex": 488,
+    "generation": 4
+  },
+  "heatran": {
+    "pokedex": 485,
+    "generation": 4
+  },
+  "diancie": {
+    "pokedex": 719,
+    "generation": 6
+  },
+  "tapu fini": {
+    "pokedex": 788,
+    "generation": 7
+  },
+  "genesect": {
+    "pokedex": 649,
+    "generation": 5
+  },
+  "virizion": {
+    "pokedex": 640,
+    "generation": 5
+  },
+  "hoopa": {
+    "pokedex": 720,
+    "generation": 6
+  },
+  "cobalion": {
+    "pokedex": 638,
+    "generation": 5
+  },
+  "tapu koko": {
+    "pokedex": 785,
+    "generation": 7
+  },
+  "tapu lele": {
+    "pokedex": 786,
+    "generation": 7
+  },
+  "cosmog": {
+    "pokedex": 789,
+    "generation": 7
+  },
+  "meloetta": {
+    "pokedex": 648,
+    "generation": 5
+  },
+  "necrozma": {
+    "pokedex": 800,
+    "generation": 7
+  },
+  "keldeo": {
+    "pokedex": 647,
+    "generation": 5
+  },
+  "volcanion": {
+    "pokedex": 721,
+    "generation": 6
+  },
+  "type: null": {
+    "pokedex": 772,
+    "generation": 7
+  },
+  "magearna": {
+    "pokedex": 801,
+    "generation": 7
+  },
+  "eternatus": {
+    "pokedex": 890,
+    "generation": 8
+  },
+  "kubfu": {
+    "pokedex": 891,
+    "generation": 8
+  },
+  "marshadow": {
+    "pokedex": 802,
+    "generation": 7
+  },
+  "regieleki": {
+    "pokedex": 894,
+    "generation": 8
+  },
+  "terapagos": {
+    "pokedex": 1024,
+    "generation": 9
+  },
+  "calyrex": {
+    "pokedex": 898,
+    "generation": 8
+  },
+  "glastrier": {
+    "pokedex": 896,
+    "generation": 8
+  },
+  "spectrier": {
+    "pokedex": 897,
+    "generation": 8
+  },
+  "regidrago": {
+    "pokedex": 895,
+    "generation": 8
+  },
+  "urshifu": {
+    "pokedex": 892,
+    "generation": 8
+  },
+  "zarude": {
+    "pokedex": 893,
+    "generation": 8
+  },
+  "zeraora": {
+    "pokedex": 807,
+    "generation": 7
+  },
+  "regirock": {
+    "pokedex": 377,
+    "generation": 3
+  },
+  "regice": {
+    "pokedex": 378,
+    "generation": 3
+  },
+  "registeel": {
+    "pokedex": 379,
+    "generation": 3
+  },
+  "regigigas": {
+    "pokedex": 486,
+    "generation": 4
+  },
+  "pecharunt": {
+    "pokedex": 1025,
+    "generation": 9
+  },
+  "azelf": {
+    "pokedex": 482,
+    "generation": 4
+  },
+  "mesprit": {
+    "pokedex": 481,
+    "generation": 4
+  },
+  "uxie": {
+    "pokedex": 480,
+    "generation": 4
+  },
+  "tapu bulu": {
+    "pokedex": 787,
+    "generation": 7
+  },
+  "terrakion": {
+    "pokedex": 639,
+    "generation": 5
+  },
+  "zygarde": {
+    "pokedex": 718,
+    "generation": 6
+  }
+}
