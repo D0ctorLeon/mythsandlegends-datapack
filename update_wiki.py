@@ -10,10 +10,10 @@ import re
 WIKI_URL = os.environ["DOKUWIKI_API_URL"]
 WIKI_USER = os.environ["DOKUWIKI_USER"]
 WIKI_PASSWORD = os.environ["DOKUWIKI_PASSWORD"]
-REPO_ROOT = os.environ["GITHUB_WORKSPACE"] # Github workspace path
-ITEM_WIKI_PAGE_ID = "mythsandlegends:items" # Page with item icons
-POKEDEX_DATA_FILE = "pokedex_data.json" # Pokedex data file
-SPAWN_INFO_NAMESPACE = "spawn-info" # Namespace for generated pages
+REPO_ROOT = os.environ["GITHUB_WORKSPACE"]
+ITEM_WIKI_PAGE_ID = "mythsandlegends:items"
+POKEDEX_DATA_FILE = "pokedex_data.json"
+SPAWN_INFO_NAMESPACE = "spawn-info"
 
 # Disable SSL verification (USE WITH CAUTION)
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -24,7 +24,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # --- Helper Functions ---
 
 def load_pokemon_data(filepath):
-    """Loads Pokedex data from a JSON file."""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -40,25 +39,20 @@ def load_pokemon_data(filepath):
         return {}
 
 def fetch_and_parse_item_icons(rpc, page_id):
-    """Fetches a DokuWiki page and parses the item table for icons."""
     item_icon_map = {}
     try:
-        content = rpc.wiki.getPage(page_id) # Use getPage which maps to wiki.getPage
-        # Regex adjusted for robustness
+        content = rpc.wiki.getPage(page_id)
         pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
-
         for match in pattern.finditer(content):
             icon_markup = match.group(1).strip()
             identifier = match.group(2).strip()
             if identifier and icon_markup:
                 item_icon_map[identifier] = icon_markup
                 logging.debug(f"Mapped item: {identifier} -> {icon_markup}")
-
         if not item_icon_map:
-             logging.warning(f"No items parsed from wiki page '{page_id}'. Check page content and regex.")
+            logging.warning(f"No items parsed from wiki page '{page_id}'. Check page content and regex.")
         else:
-             logging.info(f"Successfully parsed {len(item_icon_map)} item icons from '{page_id}'.")
-
+            logging.info(f"Successfully parsed {len(item_icon_map)} item icons from '{page_id}'.")
     except dokuwikixmlrpc.DokuWikiError as e:
         logging.error(f"DokuWiki XMLRPC Error fetching page '{page_id}': {e}")
     except Exception as e:
@@ -68,7 +62,6 @@ def fetch_and_parse_item_icons(rpc, page_id):
 # --- Core Wiki Update Logic ---
 
 def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map):
-    """Creates or updates a wiki page with spawn information."""
     full_page_name = f"{SPAWN_INFO_NAMESPACE}:{page_name}"
     logging.info(f"Processing page: {full_page_name}")
 
@@ -89,9 +82,7 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
 
     spawns_by_key_item = {}
     for spawn in data.get("spawns", []):
-        key_item_id = spawn.get("condition", {}).get("key_item")
-        if not key_item_id:
-             key_item_id = "None"
+        key_item_id = spawn.get("condition", {}).get("key_item", "None")
         spawns_by_key_item.setdefault(key_item_id, []).append(spawn)
 
     for key_item_id, spawns in spawns_by_key_item.items():
@@ -105,14 +96,17 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
             condition = spawn.get("condition", {})
             biomes = condition.get("biomes", [])
             if isinstance(biomes, list):
-                 all_biomes.update(biomes)
+                all_biomes.update(biomes)
             elif isinstance(biomes, str):
-                 all_biomes.add(biomes)
+                all_biomes.add(biomes)
 
         combined_spawn = spawns[0] if spawns else {}
         condition_data = combined_spawn.get("condition", {})
 
-        presets = ", ".join(combined_spawn.get("presets", ["N/A"]))
+        # Preset formatting fix for possible dicts
+        presets_raw = combined_spawn.get("presets", ["N/A"])
+        presets = ", ".join([p if isinstance(p, str) else json.dumps(p) for p in presets_raw])
+
         context = combined_spawn.get("context", "N/A")
         bucket = combined_spawn.get("bucket", "N/A")
         level = combined_spawn.get("level", "N/A")
@@ -146,7 +140,6 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
     content += "\n"
 
     try:
-        # Use putPage which maps to wiki.putPage
         rpc.wiki.putPage(full_page_name, content, summary="Automatic update from datapack repository")
         logging.info(f"Successfully updated wiki page: {full_page_name}")
     except dokuwikixmlrpc.DokuWikiError as e:
@@ -155,7 +148,6 @@ def create_or_update_wiki_page(rpc, page_name, data, pokemon_data, item_icon_map
         logging.error(f"Failed to update wiki page '{full_page_name}': {e}")
 
 def process_repository(rpc, root_path, pokemon_data, item_icon_map):
-    """Processes JSON files in the spawn pool directory."""
     data_folder = Path(root_path) / "data/cobblemon/spawn_pool_world"
     if not data_folder.is_dir():
         logging.error(f"Spawn data folder not found: {data_folder}")
@@ -179,8 +171,8 @@ def process_repository(rpc, root_path, pokemon_data, item_icon_map):
                     continue
 
                 if "pokemon" not in data["spawns"][0] or not data["spawns"][0]["pokemon"]:
-                     logging.warning(f"Skipping {json_file.name}: 'pokemon' key missing or empty in the first spawn.")
-                     continue
+                    logging.warning(f"Skipping {json_file.name}: 'pokemon' key missing or empty in the first spawn.")
+                    continue
 
                 pokemon_name = data["spawns"][0]["pokemon"].capitalize()
                 page_id_name = data["spawns"][0]["pokemon"].lower().replace(':','_').replace(' ','_')
@@ -190,10 +182,9 @@ def process_repository(rpc, root_path, pokemon_data, item_icon_map):
         except json.JSONDecodeError:
             logging.error(f"Failed to decode JSON from {json_file.name}")
         except KeyError as e:
-             logging.error(f"Missing expected key {e} in {json_file.name}")
+            logging.error(f"Missing expected key {e} in {json_file.name}")
         except Exception as e:
             logging.error(f"An unexpected error occurred processing {json_file.name}: {e}")
-
 
 # --- Main Execution ---
 if __name__ == "__main__":
@@ -211,7 +202,7 @@ if __name__ == "__main__":
 
         logging.info("Attempting to verify connection using dokuwiki_version() and rpc_version_supported()...")
         version = rpc.dokuwiki_version
-        api_version = rpc.rpc_version_supported
+        api_version = rpc.rpc_version_supported()
         logging.info(f"Connected to DokuWiki. Version: {version}, API Version: {api_version}")
 
     except dokuwikixmlrpc.DokuWikiError as e:
@@ -222,12 +213,10 @@ if __name__ == "__main__":
         logging.error(f"Exception type: {type(e).__name__}")
         exit(1)
 
-    # Ensure rpc was initialized
     if rpc is None:
-         logging.error("RPC client could not be initialized. Exiting.")
-         exit(1)
+        logging.error("RPC client could not be initialized. Exiting.")
+        exit(1)
 
-    # Load external data
     pokemon_data = load_pokemon_data(POKEDEX_DATA_FILE)
     item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
 
@@ -236,7 +225,6 @@ if __name__ == "__main__":
     if not item_icon_map:
         logging.warning("Item icon map is empty. Icons will not be displayed.")
 
-    # Process the repository
     process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
 
     logging.info("DokuWiki update script finished.")
