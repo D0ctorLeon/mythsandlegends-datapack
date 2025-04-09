@@ -241,10 +241,14 @@ if __name__ == "__main__":
 
     # Initialize the XML-RPC client
     try:
-         rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
+        #
+        rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD)
         # Optional: Verify connection with a simple call
+        #
         rpc.dokuwiki_version()
+        #
         logging.info(f"Successfully connected to DokuWiki at {WIKI_URL}")
+    # Correctly aligned with 'try'
     except Exception as e:
         logging.error(f"Failed to initialize DokuWiki client: {e}")
         exit(1)
