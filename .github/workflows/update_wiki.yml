@@ -11,39 +11,25 @@ on:
 
 jobs:
   update-wiki:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Use the latest version of checkout action
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v5  # Use the latest version of setup-python action
+      with:
+        python-version: '3.x'  # Use Python 3.x
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install dokuwikixmlrpc
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip  # Upgrade pip
+        pip install dokuwikixmlrpc  # Install the necessary library for DokuWiki interaction
 
-      - name: Write CA Cert from Secret
-        if: secrets.WIKI_CA_CERT != ''
-        id: write_ca_cert
-        run: echo "${{ secrets.WIKI_CA_CERT }}" > custom_ca.crt
-
-      - name: Install CA Cert
-
-        if: steps.write_ca_cert.outcome == 'success'
-        run: |
-          echo "Adding custom CA certificate to system trust store..."
-          sudo cp custom_ca.crt /usr/local/share/ca-certificates/custom_ca.crt
-          sudo update-ca-certificates
-          echo "Certificate update complete."
-
-      - name: Run update script
-        env:
-          DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}
-          DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}
-          DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}
-        run: python update_wiki.py
+    - name: Run update script
+      env:
+        DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}  # DokuWiki API URL from secrets
+        DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}  # DokuWiki username from secrets
+        DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}  # DokuWiki password from secrets
+      run: python update_wiki.py  # Run the Python script to update DokuWiki
