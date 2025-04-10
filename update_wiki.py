@@ -132,7 +132,7 @@ def get_dokuwiki_client():
     try:
         # Assuming the URL includes '/lib/exe/xmlrpc.php' or similar
         # If not, you might need to adjust the URL or library usage
-        client = DokuWikiClient(api_url, user, password, verbose=False)
+        client = DokuWikiClient(api_url, user, password)
         # Test connection
         client.dokuwiki.getVersion()
         print("Successfully connected to DokuWiki API.")
