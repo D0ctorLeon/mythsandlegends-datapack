@@ -1,338 +1,356 @@
-import dokuwikixmlrpc
 import os
 import json
-from pathlib import Path
-import ssl
-import logging
-import re
+import glob
+import sys
+from collections import defaultdict
+from dokuwikixmlrpc import DokuWikiClient # Ensure this library is installed
 
 # --- Configuration ---
-WIKI_URL = os.environ["DOKUWIKI_API_URL"]
-WIKI_USER = os.environ["DOKUWIKI_USER"]
-WIKI_PASSWORD = os.environ["DOKUWIKI_PASSWORD"]
-REPO_ROOT = os.environ["GITHUB_WORKSPACE"]
-ITEM_WIKI_PAGE_ID = "mythsandlegends:items"
-POKEDEX_DATA_FILE = "pokedex_data.json"
-SPAWN_INFO_NAMESPACE = "spawn-info"
+POKEDEX_DATA_PATH = 'pokedex_data.json'
+SPAWN_DATA_DIR = 'data/cobblemon/spawn_pool_world/'
+WIKI_NAMESPACE_PREFIX = "mythsandlegends:datapack:spawn_pool_world:"
+ITEM_PAGE_NAMESPACE = "mythsandlegends" # Namespace where item icons are stored
+ITEM_PAGE_ID = f"{ITEM_PAGE_NAMESPACE}:items" # The page listing items
 
-# Disable SSL verification (USE WITH CAUTION - only if necessary and you trust the server)
-# Consider properly configuring certificate verification instead if possible.
-ssl._create_default_https_context = ssl._create_unverified_context
+# Mapping for key item identifiers to their icon filenames (derived from your item list example)
+# Format: 'mythsandlegends:<item_id>': '<icon_filename>.png'
+ITEM_ICONS = {
+    "mythsandlegends:adamant_orb": "adamant_orb.png",
+    "mythsandlegends:aurora_ticket": "aurora_ticket.png",
+    "mythsandlegends:azure_flute": "azure_flute.png",
+    "mythsandlegends:blue_orb": "blue_orb.png",
+    "mythsandlegends:bonus_disk": "bonus_disk.png",
+    "mythsandlegends:clear_bell": "clear_bell.png",
+    "mythsandlegends:dna_splicer": "dna_splicer.png",
+    "mythsandlegends:eon_ticket": "eon_ticket.png",
+    "mythsandlegends:griseous_orb": "griseous_orb.png",
+    "mythsandlegends:gs_ball": "gs_ball.png",
+    "mythsandlegends:jade_orb": "jade_orb.png",
+    "mythsandlegends:liberty_pass": "liberty_pass.png",
+    "mythsandlegends:lustrous_orb": "lustrous_orb.png",
+    "mythsandlegends:member_card": "member_card.png",
+    "mythsandlegends:oaks_letter": "oaks_letter.png",
+    "mythsandlegends:old_sea_map": "old_sea_map.png",
+    "mythsandlegends:red_orb": "red_orb.png",
+    "mythsandlegends:rusted_shield": "rusted_shield.png",
+    "mythsandlegends:rusted_sword": "rusted_sword.png",
+    "mythsandlegends:tidal_bell": "tidal_bell.png",
+    "mythsandlegends:dr_fujis_diary": "dr_fujis_diary.png",
+    "mythsandlegends:rainbow_wing": "rainbow_wing.png",
+    "mythsandlegends:scarlet_book": "scarlet_book.png",
+    "mythsandlegends:silver_wing": "silver_wing.png",
+    "mythsandlegends:violet_book": "violet_book.png",
+    "mythsandlegends:cocoon_of_destruction": "cocoon_of_destruction.png",
+    "mythsandlegends:sapling_of_life": "sapling_of_life.png",
+    "mythsandlegends:mystery_box": "mystery_box.png",
+    "mythsandlegends:reveal_glass": "reveal_glass.png",
+    "mythsandlegends:dark_stone": "dark_stone.png",
+    "mythsandlegends:light_stone": "light_stone.png",
+    "mythsandlegends:teal_mask": "teal_mask.png",
+    "mythsandlegends:sun_flute": "sun_flute.png",
+    "mythsandlegends:moon_flute": "moon_flute.png",
+    "mythsandlegends:lunar_feather": "lunar_feather.png", # Assuming this is Lunar Wing
+    "mythsandlegends:magma_stone": "magma_stone.png",
+    "mythsandlegends:diancies_crown": "diancies_crown.png",
+    "mythsandlegends:fini_totem": "fini_totem.png",
+    "mythsandlegends:genesect_drive": "genesect_drive.png",
+    "mythsandlegends:grassland_blade": "grassland_blade.png",
+    "mythsandlegends:hoopa_ring": "hoopa_ring.png",
+    "mythsandlegends:ironwill_sword": "ironwill_sword.png",
+    "mythsandlegends:koko_totem": "koko_totem.png",
+    "mythsandlegends:lele_totem": "lele_totem.png",
+    "mythsandlegends:lillies_bag": "lillies_bag.png",
+    "mythsandlegends:meloetta_headset": "meloetta_headset.png",
+    "mythsandlegends:necro_prism": "necro_prism.png",
+    "mythsandlegends:prison_bottle": "prison_bottle.png",
+    "mythsandlegends:sacred_sword": "sacred_sword.png",
+    "mythsandlegends:steam_valve": "steam_valve.png",
+    "mythsandlegends:type_null_mask": "type_null_mask.png",
+    "mythsandlegends:antique_pokeball": "antique_pokeball.png",
+    "mythsandlegends:eternatus_core": "eternatus_core.png",
+    "mythsandlegends:kubfus_band": "kubfus_band.png",
+    "mythsandlegends:marshadow_hood": "marshadow_hood.png",
+    "mythsandlegends:plasma_tablet": "plasma_tablet.png",
+    "mythsandlegends:prismatic_shell": "prismatic_shell.png",
+    "mythsandlegends:reins_of_unity": "reins_of_unity.png",
+    "mythsandlegends:scaly_tablet": "scaly_tablet.png",
+    "mythsandlegends:scroll_of_water": "scroll_of_water.png",
+    "mythsandlegends:soul_heart": "soul_heart.png",
+    "mythsandlegends:zarudes_cape": "zarudes_cape.png",
+    "mythsandlegends:zeraoras_thunderclaw": "zeraoras_thunderclaw.png",
+    "mythsandlegends:ancient_tablet": "ancient_tablet.png",
+    "mythsandlegends:mythical_pecha_berry": "mythical_pecha_berry.png",
+    "mythsandlegends:scroll_of_darkness": "scroll_of_darkness.png",
+    "mythsandlegends:azelf_fang": "azelf_fang.png",
+    "mythsandlegends:mesprit_plume": "mesprit_plume.png",
+    "mythsandlegends:stone_tablet": "stone_tablet.png",
+    "mythsandlegends:uxie_claw": "uxie_claw.png",
+    "mythsandlegends:ice_tablet": "ice_tablet.png",
+    "mythsandlegends:steel_tablet": "steel_tablet.png",
+    "mythsandlegends:bulu_totem": "bulu_totem.png",
+    "mythsandlegends:cavern_shield": "cavern_shield.png",
+    "mythsandlegends:iceroot_carrot": "iceroot_carrot.png",
+    "mythsandlegends:shaderoot_carrot": "shaderoot_carrot.png",
+    "mythsandlegends:binding_mochi": "binding_mochi.png",
+    "mythsandlegends:cornerstone_mask": "cornerstone_mask.png",
+    "mythsandlegends:hearthflame_mask": "hearthflame_mask.png",
+    "mythsandlegends:wellspring_mask": "wellspring_mask.png",
+    # Add any other key items and their icons here
+}
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Conditions to specifically link to the item page
+LINKABLE_ITEM_CONDITIONS = ["key_item"] # Add others if needed e.g., "held_item"
 
 # --- Helper Functions ---
 
-def load_pokemon_data(filepath):
-    """Loads Pokemon data from a JSON file."""
+def load_json(filepath):
+    """Loads JSON data from a file."""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            # Ensure keys are lowercase for consistent matching
-            return {k.lower(): v for k, v in data.items()}
+            return json.load(f)
     except FileNotFoundError:
-        logging.error(f"Pokedex data file not found: {filepath}")
-        return {}
-    except json.JSONDecodeError:
-        logging.error(f"Error decoding JSON from {filepath}")
-        return {}
+        print(f"Error: File not found - {filepath}")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error: Could not decode JSON from {filepath} - {e}")
+        return None
     except Exception as e:
-        logging.error(f"An error occurred loading Pokedex data from {filepath}: {e}")
-        return {}
+        print(f"Error: An unexpected error occurred loading {filepath} - {e}")
+        return None
 
-def fetch_and_parse_item_icons(rpc: dokuwikixmlrpc.DokuWikiClient, page_id: str) -> dict:
-    """Fetches item icon markup from a specific DokuWiki page."""
-    item_icon_map = {}
-    logging.info(f"Attempting to fetch item icons from wiki page: '{page_id}'")
+def get_dokuwiki_client():
+    """Initializes and returns the DokuWiki client."""
+    api_url = os.getenv('DOKUWIKI_API_URL')
+    user = os.getenv('DOKUWIKI_USER')
+    password = os.getenv('DOKUWIKI_PASSWORD')
+
+    if not all([api_url, user, password]):
+        print("Error: Missing DokuWiki credentials/URL in environment variables.")
+        print("Please set DOKUWIKI_API_URL, DOKUWIKI_USER, and DOKUWIKI_PASSWORD.")
+        sys.exit(1) # Exit if credentials are missing
+
     try:
-        # --- CORRECTED LINE ---
-        content = rpc.call("wiki.getPage", page_id)
-        # Regex to find lines like: ^ Icon | Name | `myths:item_id` | Desc ^
-        # It extracts the Icon markup {{...}} and the item_id `myths:...`
-        # Adjust the regex pattern if your wiki table format is different.
-        pattern = re.compile(r"^\^.*?({{.*?}})\s*\|.*?\|.*?`(mythsandlegends:[a-zA-Z0-9_]+)`.*?$", re.MULTILINE)
-        matches = pattern.finditer(content)
-        count = 0
-        for match in matches:
-            icon_markup = match.group(1).strip()
-            identifier = match.group(2).strip()
-            if identifier and icon_markup:
-                item_icon_map[identifier] = icon_markup
-                logging.debug(f"Mapped item: {identifier} -> {icon_markup}")
-                count += 1
-            else:
-                logging.warning(f"Found partial match but missing identifier or icon markup in line: {match.group(0)}")
-
-        if count == 0:
-            logging.warning(f"No items parsed from wiki page '{page_id}'. Check page content and regex pattern.")
-            logging.debug(f"Content checked was:\n---\n{content[:500]}...\n---") # Log beginning of content for debug
-        else:
-            logging.info(f"Successfully parsed {count} item icons from '{page_id}'.")
-    except dokuwikixmlrpc.DokuWikiError as e:
-        logging.error(f"DokuWiki XMLRPC Error fetching page '{page_id}': {e}")
-    except AttributeError:
-         # This can happen if wiki_getPage returns None or unexpected type
-         logging.error(f"Could not get valid content from page '{page_id}'. Check if page exists and has content.")
+        # Assuming the URL includes '/lib/exe/xmlrpc.php' or similar
+        # If not, you might need to adjust the URL or library usage
+        client = DokuWikiClient(api_url, user, password, verbose=False)
+        # Test connection
+        client.dokuwiki.getVersion()
+        print("Successfully connected to DokuWiki API.")
+        return client
     except Exception as e:
-        # Catching generic Exception to log unexpected errors during parsing
-        logging.error(f"An unexpected error occurred parsing item icons from page '{page_id}': {e}", exc_info=True)
-    return item_icon_map
+        print(f"Error: Could not connect to DokuWiki API at {api_url} - {e}")
+        sys.exit(1) # Exit if connection fails
 
-
-# --- Core Wiki Update Logic ---
-
-def create_or_update_wiki_page(rpc: dokuwikixmlrpc.DokuWikiClient, page_name: str, data: dict, pokemon_data: dict, item_icon_map: dict):
-    """Generates DokuWiki markup and updates the corresponding wiki page."""
-    full_page_name = f"{SPAWN_INFO_NAMESPACE}:{page_name}"
-    logging.info(f"Processing page generation for: {full_page_name}")
-
-    # Defensive checks for expected data structure
-    if not data.get("spawns") or not isinstance(data["spawns"], list):
-        logging.error(f"Skipping {full_page_name}: Invalid or missing 'spawns' list in data.")
-        return
-    first_spawn = data["spawns"][0]
-    if not first_spawn or not isinstance(first_spawn, dict):
-         logging.error(f"Skipping {full_page_name}: First spawn entry is invalid.")
-         return
-
-    pokemon_name_raw = first_spawn.get("pokemon")
-    if not pokemon_name_raw:
-        logging.error(f"Skipping {full_page_name}: Missing 'pokemon' name in first spawn entry.")
-        return
-
-    pokemon_name_lower = pokemon_name_raw.lower()
-    pokemon_name_display = pokemon_name_raw.capitalize() # Simple capitalization
-
-    poke_info = pokemon_data.get(pokemon_name_lower, {})
-    pokedex_num = poke_info.get("pokedex", "N/A")
-    generation = poke_info.get("generation", "N/A")
-    if pokedex_num == "N/A":
-        logging.warning(f"Pokedex data not found for: {pokemon_name_lower} (Raw: {pokemon_name_raw})")
-
-    # Start building content
-    content = f"===== {pokemon_name_display} =====\n\n"
-    content += f"**Pokédex Number:** {pokedex_num}\n"
-    content += f"**Generation:** {generation}\n\n"
-
-    # Group spawns by their key item requirement
-    spawns_by_key_item = {}
-    for i, spawn in enumerate(data.get("spawns", [])):
-        if not isinstance(spawn, dict):
-            logging.warning(f"Spawn entry at index {i} for {full_page_name} is not a dictionary, skipping.")
-            continue
-        # Default to "None" if no key_item condition exists
-        key_item_id = spawn.get("condition", {}).get("key_item", "None")
-        # Ensure key_item_id is a string
-        if not isinstance(key_item_id, str):
-             logging.warning(f"Key item ID '{key_item_id}' in spawn entry {i} for {full_page_name} is not a string, treating as 'None'.")
-             key_item_id = "None"
-        spawns_by_key_item.setdefault(key_item_id, []).append(spawn)
-
-    if not spawns_by_key_item:
-        logging.warning(f"No valid spawn entries found to process for {full_page_name} after grouping.")
-        content += "//No valid spawn configurations found in the source data.//\n"
+def format_condition_value(key, value):
+    """Formats a single condition key-value pair for DokuWiki."""
+    if isinstance(value, list):
+        # Format lists (like biomes, neededNearbyBlocks)
+        formatted_items = [f"`{item}`" for item in value] # Wrap items in backticks
+        return f"[{', '.join(formatted_items)}]"
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, (int, float, str)):
+        if key in LINKABLE_ITEM_CONDITIONS:
+            item_id = str(value)
+            icon = ITEM_ICONS.get(item_id)
+            # Link to the item page anchor, display item_id and icon
+            link_target = f"{ITEM_PAGE_ID}#{item_id.replace(':', '_')}" # Create anchor link target
+            icon_markup = f"{{{{{ITEM_PAGE_NAMESPACE}:{icon}?nolink&16}}}}" if icon else ""
+            return f"[[{link_target}|`{item_id}` {icon_markup}]]"
+        else:
+            # Simple string/number value
+            return f"`{value}`" # Wrap in backticks
     else:
-        # Process each key item group
-        for key_item_id, spawns in spawns_by_key_item.items():
-            item_icon = item_icon_map.get(key_item_id, "")
-            # Make the display name more readable
-            key_items_display = key_item_id.replace("mythsandlegends:", "").replace("_", " ").title() if key_item_id != "None" else "No Specific Key Item"
+        # Fallback for unexpected types
+        return f"`{str(value)}`"
 
-            content += f"\n==== Spawn Details ({key_items_display}) {item_icon}====\n"
+def format_conditions(conditions):
+    """Formats the condition dictionary into a DokuWiki string."""
+    if not conditions:
+        return "None"
 
-            # Aggregate details - assuming they are mostly the same for the same key item,
-            # but collecting all biomes is important.
-            all_biomes = set()
-            condition_data = {}
-            presets = "N/A"
-            context = "N/A"
-            bucket = "N/A"
-            level = "N/A"
-            weight = "N/A"
+    lines = []
+    for key, value in sorted(conditions.items()):
+        # Skip empty/null values if desired (optional)
+        # if not value:
+        #    continue
+        formatted_val = format_condition_value(key, value)
+        lines.append(f"  * **{key}:** {formatted_val}")
+    return "\n".join(lines) if lines else "None"
 
-            if spawns: # Use the first spawn entry for common details
-                combined_spawn = spawns[0]
-                condition_data = combined_spawn.get("condition", {})
+def generate_wiki_content(pokemon_name, gen_info, spawn_details_list):
+    """Generates the full DokuWiki page content for a single Pokémon."""
+    # --- Page Header ---
+    title = pokemon_name.replace('-', ' ').replace('_', ' ').title()
+    content = [f"====== Spawn Data: {title} ======\n"]
 
-                presets_raw = combined_spawn.get("presets", ["N/A"])
-                presets = ", ".join([str(p) for p in presets_raw]) # Ensure all are strings
+    # --- Basic Info ---
+    if gen_info:
+        content.append(f"**Pokédex Number:** {gen_info.get('pokedex', 'N/A')}")
+        content.append(f"**Generation:** {gen_info.get('generation', 'N/A')}\n")
+    else:
+        content.append("**Pokédex Number:** Unknown")
+        content.append("**Generation:** Unknown\n")
 
-                context = combined_spawn.get("context", "N/A")
-                bucket = combined_spawn.get("bucket", "N/A")
-                level = combined_spawn.get("level", "N/A")
-                weight = combined_spawn.get("weight", "N/A")
+    content.append("This page details the natural spawning conditions for this Pokémon based on the `mythsandlegends` datapack.\n")
 
-                # Collect biomes from ALL spawns in this group
-                for spawn in spawns:
-                    biomes = spawn.get("condition", {}).get("biomes", [])
-                    if isinstance(biomes, list):
-                        all_biomes.update(b.strip() for b in biomes if isinstance(b, str))
-                    elif isinstance(biomes, str):
-                        all_biomes.add(biomes.strip())
-                    # else: log warning?
+    # --- Spawn Table Header ---
+    content.append("^ Spawn ID ^ Level ^ Bucket ^ Weight ^ Context ^ Presets ^ Conditions ^")
 
-            # Add collected details to content
-            content += f"**Presets:** {presets}\n"
-            if context and context != "N/A": # Only show if present and not default N/A
-                content += f"**Context:** {context}\n"
-            content += f"**Spawn Bucket:** {bucket}\n"
-            content += f"**Level Range:** {level}\n"
-            content += f"**Weight:** {weight}\n"
+    # --- Spawn Table Rows ---
+    # Group similar spawns (basic grouping by non-condition fields)
+    grouped_spawns = defaultdict(list)
+    for spawn in spawn_details_list:
+        # Create a tuple key based on fields we want to group by
+        group_key = (
+            spawn.get('level', 'N/A'),
+            spawn.get('bucket', 'N/A'),
+            spawn.get('context', 'N/A'),
+            tuple(sorted(spawn.get('presets', []))), # Use tuple for list hashing
+            # Add other non-varying conditions here if needed for grouping
+        )
+        grouped_spawns[group_key].append(spawn)
 
-            # Biomes Table
-            if all_biomes:
-                content += "\n^ Biomes ^\n"
-                for biome in sorted(list(all_biomes)):
-                    content += f"| {biome} |\n"
-            else:
-                content += "**Biomes:** N/A\n" # Or specify if context implies biomes are irrelevant
+    # Generate rows, potentially merging conditions for grouped spawns
+    for group_key, spawns_in_group in grouped_spawns.items():
+        # Use the first spawn for common details
+        first_spawn = spawns_in_group[0]
+        spawn_id = first_spawn.get('id', 'N/A') # Might list multiple if truly needed
+        level = first_spawn.get('level', 'N/A')
+        bucket = first_spawn.get('bucket', 'N/A')
+        weight = first_spawn.get('weight', 'N/A')
+        context = first_spawn.get('context', 'N/A')
+        presets = ', '.join(f"`{p}`" for p in first_spawn.get('presets', [])) or 'N/A'
 
-            # Other Conditions Table
-            other_conditions = {
-                k: v for k, v in condition_data.items() if k not in ("biomes", "key_item") and v # Ensure value is not empty/false
-            }
-            if other_conditions:
-                content += "\n^ Additional Conditions ^ Value ^\n"
-                for condition, value in sorted(other_conditions.items()):
-                    # Format value nicely (list to comma-separated string)
-                    value_str = ", ".join(map(str, value)) if isinstance(value, list) else str(value)
-                    # Make condition key more readable
-                    condition_display = condition.replace('_', ' ').title()
-                    content += f"| {condition_display} | {value_str} |\n"
-            content += "\n" # Add space before next section or end of page
+        # --- Condition Merging (Example: Merge biomes and key_items) ---
+        all_conditions_str = []
+        # Collect all unique conditions across the group
+        merged_conditions = defaultdict(set)
+        all_raw_conditions = [] # Store full condition dicts for detailed view if needed
+
+        for spawn in spawns_in_group:
+             raw_cond = spawn.get('condition', {})
+             all_raw_conditions.append(raw_cond)
+             for key, value in raw_cond.items():
+                 if isinstance(value, list):
+                     merged_conditions[key].update(value) # Add all items from lists
+                 else:
+                     merged_conditions[key].add(value) # Add single items
+
+        # Format merged conditions
+        formatted_merged_conditions = []
+        for key, value_set in sorted(merged_conditions.items()):
+             # Convert set back to list for consistent formatting
+             value = sorted(list(value_set))
+             if len(value) == 1:
+                 value = value[0] # Use single value if only one item
+
+             formatted_val = format_condition_value(key, value)
+             formatted_merged_conditions.append(f"  * **{key}:** {formatted_val}")
+
+        condition_str = "\n".join(formatted_merged_conditions) if formatted_merged_conditions else "None"
+        # --- End Condition Merging ---
+
+        # Add Weight Multiplier if present (only shows first one if multiple in group)
+        if 'weightMultiplier' in first_spawn:
+            multiplier_data = first_spawn['weightMultiplier']
+            multiplier = multiplier_data.get('multiplier', 'N/A')
+            multiplier_cond = format_conditions(multiplier_data.get('condition', {}))
+            condition_str += f"\n  * **weightMultiplier:**\n    * multiplier: `{multiplier}`\n    * condition:\n{multiplier_cond.replace('  *', '      *')}" # Indent multiplier conditions
 
 
-    # Final content adjustment (e.g., adding a footer)
-    content += "\n----\n//This page was automatically generated based on the datapack.//"
+        # If multiple spawns were grouped, indicate it (optional)
+        if len(spawns_in_group) > 1:
+            spawn_id += f" (and {len(spawns_in_group) - 1} similar)"
+            # Alternative: list all IDs: spawn_id = ', '.join(f"`{s.get('id', 'N/A')}`" for s in spawns_in_group)
 
-    # Update the wiki page
+        content.append(f"| `{spawn_id}` | `{level}` | `{bucket}` | `{weight}` | `{context}` | {presets} | {condition_str} |")
+
+    return "\n".join(content)
+
+def update_wiki_page(client, page_id, content, summary="Automated spawn data update"):
+    """Updates a DokuWiki page with the given content."""
     try:
-        logging.info(f"Attempting to update wiki page: {full_page_name}")
-        # --- CORRECTED LINE ---
-        content = rpc.call("wiki.getPage", page_id)
-        if success:
-             logging.info(f"Successfully updated wiki page: {full_page_name}")
-        else:
-             # Note: putPage often returns True on success, but check library specifics if needed
-             logging.warning(f"Wiki page update call for '{full_page_name}' completed, but returned non-True status (check wiki logs/history).")
-
-    except dokuwikixmlrpc.DokuWikiError as e:
-        logging.error(f"DokuWiki XMLRPC Error updating page '{full_page_name}': {e}")
+        print(f"Attempting to update page: {page_id}")
+        # Use putPage to create or update the page
+        client.dokuwiki.putPage(page_id, content, {'sum': summary})
+        print(f"Successfully updated page: {page_id}")
+        return True
     except Exception as e:
-        logging.error(f"Failed to update wiki page '{full_page_name}' due to an unexpected error: {e}", exc_info=True) # Log traceback
-
-
-def process_repository(rpc: dokuwikixmlrpc.DokuWikiClient, root_path: str, pokemon_data: dict, item_icon_map: dict):
-    """Finds spawn JSON files and triggers the update process for each."""
-    data_folder = Path(root_path) / "data/cobblemon/spawn_pool_world"
-    if not data_folder.is_dir():
-        logging.error(f"Spawn data folder not found: {data_folder}")
-        return
-
-    json_files_found = list(data_folder.glob("*.json"))
-    if not json_files_found:
-        logging.warning(f"No JSON files found in {data_folder}")
-        return
-
-    logging.info(f"Found {len(json_files_found)} JSON files to process in {data_folder}.")
-
-    processed_count = 0
-    error_count = 0
-    for json_file in json_files_found:
-        logging.debug(f"Processing file: {json_file.name}")
-        try:
-            with open(json_file, "r", encoding='utf-8') as file:
-                data = json.load(file)
-
-                # Basic validation of the loaded JSON data structure
-                if "spawns" not in data or not isinstance(data["spawns"], list) or not data["spawns"]:
-                    logging.warning(f"Skipping {json_file.name}: 'spawns' key missing, not a list, or empty.")
-                    continue
-
-                first_spawn = data["spawns"][0]
-                if not isinstance(first_spawn, dict) or "pokemon" not in first_spawn or not first_spawn["pokemon"]:
-                    logging.warning(f"Skipping {json_file.name}: 'pokemon' key missing or empty in the first spawn entry.")
-                    continue
-
-                # Derive page name from the pokemon field in the first spawn entry
-                # Clean the name for use as a DokuWiki page ID
-                pokemon_name_id = first_spawn["pokemon"].lower().replace(':','_').replace(' ','_').replace('.','').replace('-','_') # Be safe with page IDs
-                if not pokemon_name_id:
-                     logging.warning(f"Could not derive a valid page ID from pokemon '{first_spawn['pokemon']}' in {json_file.name}, skipping.")
-                     continue
-
-
-                create_or_update_wiki_page(rpc, pokemon_name_id, data, pokemon_data, item_icon_map)
-                processed_count += 1
-
-        except json.JSONDecodeError:
-            logging.error(f"Failed to decode JSON from {json_file.name}")
-            error_count += 1
-        except KeyError as e:
-            logging.error(f"Missing expected key {e} while processing {json_file.name}")
-            error_count += 1
-        except Exception as e:
-            logging.error(f"An unexpected error occurred processing {json_file.name}: {e}", exc_info=True) # Log traceback for unexpected errors
-            error_count += 1
-
-    logging.info(f"Finished processing JSON files. Processed: {processed_count}, Errors: {error_count}")
-
+        print(f"Error: Failed to update page {page_id} - {e}")
+        # You might want to check the specific error type from the library
+        # e.g., if it's a permission error, authentication error etc.
+        return False
 
 # --- Main Execution ---
+
 if __name__ == "__main__":
-    logging.info("Starting DokuWiki update script.")
+    print("Starting DokuWiki update process...")
 
-    # Check environment variables
-    missing_vars = []
-    if not WIKI_URL: missing_vars.append("DOKUWIKI_API_URL")
-    if not WIKI_USER: missing_vars.append("DOKUWIKI_USER")
-    if not WIKI_PASSWORD: missing_vars.append("DOKUWIKI_PASSWORD")
-    if not REPO_ROOT or not Path(REPO_ROOT).is_dir(): missing_vars.append("GITHUB_WORKSPACE (must be a valid directory)")
+    # 1. Initialize DokuWiki Client
+    wiki_client = get_dokuwiki_client()
 
-    if missing_vars:
-        logging.error(f"Missing or invalid required environment variables: {', '.join(missing_vars)}. Exiting.")
-        exit(1)
+    # 2. Load Pokedex Data
+    pokedex_data = load_json(POKEDEX_DATA_PATH)
+    if pokedex_data is None:
+        print("Error: Could not load pokedex data. Exiting.")
+        sys.exit(1)
+
+    # 3. Find and Process Spawn Files
+    spawn_files = glob.glob(os.path.join(SPAWN_DATA_DIR, '*.json'))
+    if not spawn_files:
+        print(f"Warning: No JSON files found in {SPAWN_DATA_DIR}")
+        sys.exit(0) # Exit cleanly if no files found
+
+    pokemon_spawns = defaultdict(list)
+    print(f"Found {len(spawn_files)} spawn files to process.")
+
+    for filepath in spawn_files:
+        spawn_data = load_json(filepath)
+        if spawn_data is None or not spawn_data.get('enabled', False):
+            # print(f"Skipping disabled or invalid file: {filepath}")
+            continue
+
+        spawns_list = spawn_data.get('spawns', [])
+        for spawn_detail in spawns_list:
+            pokemon_name = spawn_detail.get('pokemon')
+            if pokemon_name:
+                # Clean up name if needed (e.g., remove potential prefixes)
+                if ':' in pokemon_name:
+                   pokemon_name = pokemon_name.split(':')[-1]
+                pokemon_spawns[pokemon_name].append(spawn_detail)
+            else:
+                print(f"Warning: Spawn entry in {filepath} is missing 'pokemon' field.")
+
+    # 4. Generate and Update Wiki Pages
+    print(f"\nProcessing {len(pokemon_spawns)} unique Pokémon...")
+    updated_pages = 0
+    failed_pages = 0
+
+    for pokemon_name, spawn_details in pokemon_spawns.items():
+        gen_info = pokedex_data.get(pokemon_name)
+        generation = str(gen_info.get('generation', 'Unknown')) if gen_info else 'Unknown'
+
+        # Construct page ID: mythsandlegends:datapack:spawn_pool_world:<Generation>:<PokemonName>
+        # Ensure names are valid for DokuWiki (lowercase, underscores maybe)
+        safe_pokemon_name = pokemon_name.lower().replace('-', '_')
+        page_id = f"{WIKI_NAMESPACE_PREFIX}{generation}:{safe_pokemon_name}"
+
+        print(f"\nGenerating content for: {pokemon_name} (Page ID: {page_id})")
+        wiki_content = generate_wiki_content(pokemon_name, gen_info, spawn_details)
+
+        # Update the page
+        if update_wiki_page(wiki_client, page_id, wiki_content):
+             updated_pages += 1
+        else:
+             failed_pages += 1
+
+    print("\n--- Update Summary ---")
+    print(f"Successfully updated pages: {updated_pages}")
+    print(f"Failed page updates: {failed_pages}")
+
+    if failed_pages > 0:
+        sys.exit(1) # Indicate failure in the workflow run
     else:
-        logging.info("Environment variables seem okay.")
-
-    # Load external data first
-    pokedex_data_path = Path(REPO_ROOT) / POKEDEX_DATA_FILE # Assume pokedex data is in repo root
-    logging.info(f"Loading Pokedex data from: {pokedex_data_path}")
-    pokemon_data = load_pokemon_data(pokedex_data_path)
-    if not pokemon_data:
-        logging.warning("Pokedex data is empty or failed to load. Pokédex numbers and generations will be 'N/A'.")
-
-
-    try:
-        logging.info(f"Attempting to initialize DokuWikiClient for {WIKI_URL}...")
-        # Consider adding a timeout
-        rpc = dokuwikixmlrpc.DokuWikiClient(WIKI_URL, WIKI_USER, WIKI_PASSWORD) # Add , verbose=True for debugging XML-RPC calls
-        logging.info("DokuWikiClient object created successfully.")
-
-        logging.info("Attempting to verify connection and API version...")
-        # Use getattr for safer access in case methods don't exist in older lib versions
-        version = getattr(rpc, 'dokuwiki_version', 'N/A')
-        api_version = getattr(rpc, 'rpc_version_supported', lambda: 'N/A')() # Call if exists
-        logging.info(f"Connected to DokuWiki. Version: {version}, XML-RPC API Version: {api_version}")
-
-        # Fetch item icons AFTER successful connection
-        item_icon_map = fetch_and_parse_item_icons(rpc, ITEM_WIKI_PAGE_ID)
-        if not item_icon_map:
-            logging.warning("Item icon map is empty. Icons will not be displayed.")
-
-        # Process the repository data
-        process_repository(rpc, REPO_ROOT, pokemon_data, item_icon_map)
-
-    except dokuwikixmlrpc.DokuWikiError as e:
-         logging.error(f"DokuWiki XMLRPC Communication Error: {e}", exc_info=True)
-         exit(1)
-    except ConnectionRefusedError as e:
-         logging.error(f"Connection Refused: Could not connect to DokuWiki at {WIKI_URL}. Check URL and server status. Error: {e}", exc_info=True)
-         exit(1)
-    except Exception as e:
-        # Catch any other unexpected exceptions during setup or processing
-        logging.error(f"A fatal error occurred during script execution: {e}", exc_info=True) # Log traceback
-        exit(1)
-
-    logging.info("DokuWiki update script finished.")
+        print("Wiki update process completed successfully.")
+        sys.exit(0) # Indicate success
