@@ -19,7 +19,7 @@
           "#cobblemon:is_hills"
         ],
         "timeRange": "night",
-        "key_item": "moon_flute"
+        "key_item": "mythsandlegends:moon_flute"
       }
     }
   ]

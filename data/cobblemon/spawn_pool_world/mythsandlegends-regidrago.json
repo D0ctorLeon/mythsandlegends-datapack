@@ -18,7 +18,7 @@
         "biomes": [
           "#minecraft:is_nether"
         ],
-        "key_item": "scaly_tablet"
+        "key_item": "mythsandlegends:scaly_tablet"
       }
     },
     {
@@ -40,7 +40,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "scaly_tablet"
+        "key_item": "mythsandlegends:scaly_tablet"
       }
     }
   ,
@@ -63,7 +63,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ,
@@ -86,7 +86,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ]

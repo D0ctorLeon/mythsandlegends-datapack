@@ -22,7 +22,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "aurora_ticket"
+        "key_item": "mythsandlegends:aurora_ticket"
       }
     },
     {
@@ -40,7 +40,7 @@
         "biomes": [
           "#cobblemon:is_end"
         ],
-        "key_item": "aurora_ticket"
+        "key_item": "mythsandlegends:aurora_ticket"
       }
     }
   ]

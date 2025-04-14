@@ -32,7 +32,7 @@
           "wythers:tropical_island",
           "wythers:tropical_rainforest"
         ],
-        "key_item": "kubfus_band"
+        "key_item": "mythsandlegends:kubfus_band"
       }
     },
     {
@@ -59,7 +59,7 @@
           "wythers:sparse_bamboo_jungle"
           
         ],
-        "key_item": "kubfus_band"
+        "key_item": "mythsandlegends:kubfus_band"
       }
     }
   ]

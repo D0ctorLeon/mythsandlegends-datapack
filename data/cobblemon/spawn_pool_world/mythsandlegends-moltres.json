@@ -19,8 +19,14 @@
           "minecraft:badlands",
           "minecraft:windswept_hills"
         ],
-        "key_item": "tidal_bell",
-        "fire_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:fire_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -40,8 +46,14 @@
           "#cobblemon:is_thermal",
           "#cobblemon:is_sky"
         ],
-        "key_item": "tidal_bell",
-        "fire_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:fire_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

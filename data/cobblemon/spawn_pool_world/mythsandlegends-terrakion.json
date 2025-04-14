@@ -38,7 +38,7 @@
           "wythers:thermal_taiga_crags",
           "wythers:windswept_jungle"          
         ],
-        "key_item": "cavern_shield"
+        "key_item": "mythsandlegends:cavern_shield"
       }
     },
     {
@@ -64,7 +64,7 @@
           "wythers:tibesti_mountains"
           
         ],
-        "key_item": "cavern_shield"
+        "key_item": "mythsandlegends:cavern_shield"
       }
     }
   ]

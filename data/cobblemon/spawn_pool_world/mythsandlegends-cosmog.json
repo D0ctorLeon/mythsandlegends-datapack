@@ -44,7 +44,7 @@
           "wythers:spring_flower_forest"
 
         ],
-        "key_item": "lillies_bag"
+        "key_item": "mythsandlegends:lillies_bag"
       }
     },
     {
@@ -66,7 +66,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "lillies_bag"
+        "key_item": "mythsandlegends:lillies_bag"
       }
     }
   ]

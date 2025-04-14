@@ -22,7 +22,8 @@
           "minecraft:mangrove_swamp",
           "minecraft:swamp"
         ],
-        "key_item": "zygarde_cube"
+        "required_cells": 95,
+        "required_cores": 5
       }
     },
     {
@@ -42,48 +43,10 @@
           "#cobblemon:is_cave",
           "#cobblemon:is_swamp"
         ],
-        "key_item": "zygarde_cube"
-      }
-    },
-    {
-      "id": "mythsandlegends-zygarde-3",
-      "pokemon": "zygarde",
-      "presets": [
-        "natural"
-      ],
-      "type": "pokemon",
-      "context": "grounded",
-      "bucket": "ultra-rare",
-      "level": "70",
-      "weight": 0.1,
-      "condition": {
-        "biomes": [
-          "#cobblemon:is_forest",
-          "#cobblemon:is_cave",
-          "#cobblemon:is_swamp"
-        ],
-        "key_item": "zygarde_cell"
-      }
-    },
-    {
-      "id": "mythsandlegends-zygarde-4",
-      "pokemon": "zygarde",
-      "presets": [
-        "natural"
-      ],
-      "type": "pokemon",
-      "context": "grounded",
-      "bucket": "ultra-rare",
-      "level": "70",
-      "weight": 0.1,
-      "condition": {
-        "biomes": [
-          "#cobblemon:is_forest",
-          "#cobblemon:is_cave",
-          "#cobblemon:is_swamp"
-        ],
-        "key_item": "zygarde_core"
+        "required_cells": 95,
+        "required_cores": 5
       }
     }
+
   ]
 }

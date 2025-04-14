@@ -18,7 +18,7 @@
         "biomes": [
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     },
     {
@@ -45,7 +45,7 @@
           "minecraft:savanna_plateau",
           "#cobblemon:is_savanna"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     },
     {
@@ -72,7 +72,7 @@
           "minecraft:savanna_plateau",
           "#cobblemon:is_savanna"
         ],
-      "custom_pokemons_in_team": [
+      "pokemon_in_party_requirement": [
         {
           "species": "regice",
           "count": 1

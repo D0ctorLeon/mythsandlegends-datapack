@@ -19,7 +19,7 @@
           "minecraft:mushroom_fields",
           "minecraft:windswept_gravelly_hills"
         ],
-        "key_item": "bonus_disk"
+        "key_item": "mythsandlegends:bonus_disk"
       }
     },
     {
@@ -38,7 +38,7 @@
           "#cobblemon:is_magical",
           "#cobblemon:is_sparse"
         ],
-        "key_item": "bonus_disk"
+        "key_item": "mythsandlegends:bonus_disk"
       }
     }
   ]

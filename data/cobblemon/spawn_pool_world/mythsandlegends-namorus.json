@@ -19,7 +19,7 @@
           "minecraft:meadow",
           "minecraft:cherry_grove"
         ],
-        "key_item": "reveal_glass"
+        "key_item": "mythsandlegends:reveal_glass"
       }
     }
   ]

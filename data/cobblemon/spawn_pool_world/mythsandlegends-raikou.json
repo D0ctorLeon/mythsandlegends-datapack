@@ -20,8 +20,14 @@
           "minecraft:savanna",
           "minecraft:savanna_plateau"
         ],
-        "key_item": "clear_bell",
-        "thunder_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:thunder_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -41,8 +47,14 @@
           "#cobblemon:is_grassland",
           "#cobblemon:is_arid"
         ],
-        "key_item": "clear_bell",
-        "thunder_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:thunder_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

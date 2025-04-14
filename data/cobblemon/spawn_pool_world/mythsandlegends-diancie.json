@@ -20,7 +20,7 @@
         "biomes": [
           "#cobblemon:is_cave"   
         ],
-        "key_item": "diancies_crown"
+        "key_item": "mythsandlegends:diancies_crown"
       }
     },
     {
@@ -52,7 +52,7 @@
           "terralith:cave/thermal_caves",
           "terralith:cave/underground_jungle"
         ],
-        "key_item": "diancies_crown"
+        "key_item": "mythsandlegends:diancies_crown"
       }
     }
   ]

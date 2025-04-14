@@ -23,7 +23,7 @@
           "#cobblemon:is_jungle",
           "#minecraft:is_jungle"
         ],
-        "key_item": "jade_orb"
+        "key_item": "mythsandlegends:jade_orb"
       }
     },
     {
@@ -47,7 +47,7 @@
           "#cobblemon:is_jungle",
           "#minecraft:is_jungle"
         ],
-        "key_item": "jade_orb"
+        "key_item": "mythsandlegends:jade_orb"
       }
     }
   ]

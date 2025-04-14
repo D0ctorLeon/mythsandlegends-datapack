@@ -20,7 +20,7 @@
           "minecraft:sunflower_plains",
           "minecraft:flower_forest"
         ],
-        "key_item": "clear_bell"
+        "key_item": "mythsandlegends:clear_bell"
       }
     },
     {
@@ -40,7 +40,7 @@
           "minecraft:sunflower_plains",
           "#cobblemon:is_summer"
         ],
-        "key_item": "clear_bell"
+        "key_item": "mythsandlegends:clear_bell"
       }
     },
     {
@@ -60,7 +60,7 @@
           "minecraft:sunflower_plains",
           "minecraft:flower_forest"
         ],
-        "key_item": "rainbow_wing"
+        "key_item": "mythsandlegends:rainbow_wing"
       }
     },
     {
@@ -80,7 +80,7 @@
           "#minecraft:sunflower_plains",
           "#cobblemon:is_summer"
         ],
-        "key_item": "rainbow_wing"
+        "key_item": "mythsandlegends:rainbow_wing"
       }
     }
   ]

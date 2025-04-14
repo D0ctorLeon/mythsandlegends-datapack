@@ -24,7 +24,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "lustrous_orb"
+        "key_item": "mythsandlegends:lustrous_orb"
       }
     },
     {
@@ -48,7 +48,7 @@
           "#cobblemon:is_end",
           "minecraft:small_end_islands"
         ],
-        "key_item": "lustrous_orb"
+        "key_item": "mythsandlegends:lustrous_orb"
       }
     }
   ]

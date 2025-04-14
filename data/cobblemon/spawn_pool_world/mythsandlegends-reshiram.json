@@ -20,7 +20,7 @@
         ],
         "minLight": 8,
         "maxLight": 15,
-        "key_item": "light_stone"
+        "key_item": "mythsandlegends:light_stone"
       }
     }
   ]

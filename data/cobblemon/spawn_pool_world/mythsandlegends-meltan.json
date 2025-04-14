@@ -21,7 +21,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "mystery_box"
+        "key_item": "mythsandlegends:mystery_box"
       }
     }
   ]

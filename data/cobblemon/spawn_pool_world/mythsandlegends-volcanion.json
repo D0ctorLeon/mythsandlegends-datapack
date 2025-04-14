@@ -18,7 +18,7 @@
         "biomes": [
           "#minecraft:is_nether"
         ],
-        "key_item": "steam_valve"
+        "key_item": "mythsandlegends:steam_valve"
       }
     },
     {
@@ -44,7 +44,7 @@
           "wythers:volcanic_chamber",
           "wythers:volcanic_crater"
         ],
-        "key_item": "steam_valve"
+        "key_item": "mythsandlegends:steam_valve"
       }
     }
   ]

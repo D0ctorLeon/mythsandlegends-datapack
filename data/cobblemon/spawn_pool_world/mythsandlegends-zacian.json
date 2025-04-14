@@ -20,7 +20,7 @@
           "minecraft:flower_forest",
           "minecraft:meadow"
         ],
-        "key_item": "rusted_sword"
+        "key_item": "mythsandlegends:rusted_sword"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_forest",
           "#cobblemon:is_highlands"
         ],
-        "key_item": "rusted_sword"
+        "key_item": "mythsandlegends:rusted_sword"
       }
     }
   ]

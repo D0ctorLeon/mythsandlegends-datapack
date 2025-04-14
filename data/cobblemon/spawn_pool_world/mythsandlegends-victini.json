@@ -21,7 +21,7 @@
           "minecraft:eroded_badlands",
           "minecraft:savanna"
         ],
-        "key_item": "liberty_pass"
+        "key_item": "mythsandlegends:liberty_pass"
       }
     },
     {
@@ -41,7 +41,7 @@
           "#cobblemon:is_thermal",
           "#cobblemon:is_savanna"
         ],
-        "key_item": "liberty_pass"
+        "key_item": "mythsandlegends:liberty_pass"
       }
     }
   ]

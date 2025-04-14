@@ -18,7 +18,7 @@
           "#cobblemon:is_dark_forest",
           "#cobblemon:is_plains"
         ],
-        "key_item": "shaderoot_carrot"
+        "key_item": "mythsandlegends:shaderoot_carrot"
       }
     },
     {
@@ -36,7 +36,7 @@
           "#cobblemon:is_spooky",
           "#cobblemon:is_plains"
         ],
-        "key_item": "shaderoot_carrot"
+        "key_item": "mythsandlegends:shaderoot_carrot"
       }
     }
   ]

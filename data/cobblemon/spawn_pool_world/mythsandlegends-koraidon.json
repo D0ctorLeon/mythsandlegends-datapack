@@ -21,7 +21,7 @@
           "minecraft:savanna",
           "minecraft:savanna_plateau"
         ],
-        "key_item": "scarlet_book"
+        "key_item": "mythsandlegends:scarlet_book"
       }
     },
     {
@@ -41,7 +41,7 @@
           "#cobblemon:is_plateau",
           "#cobblemon:is_mountain"
         ],
-        "key_item": "scarlet_book"
+        "key_item": "mythsandlegends:scarlet_book"
       }
     }
   ]

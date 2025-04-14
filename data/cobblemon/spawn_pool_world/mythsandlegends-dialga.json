@@ -19,7 +19,7 @@
           "minecraft:mountain_edge",
           "minecraft:stony_peaks"
         ],
-        "key_item": "adamant_orb"
+        "key_item": "mythsandlegends:adamant_orb"
       }
     },
     {
@@ -39,7 +39,7 @@
           "#cobblemon:is_peak",
           "#cobblemon:is_mountain"
         ],
-        "key_item": "adamant_orb"
+        "key_item": "mythsandlegends:adamant_orb"
       }
     }
   ]

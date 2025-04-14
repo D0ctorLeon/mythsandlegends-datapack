@@ -21,7 +21,7 @@
           "minecraft:desert",
           "minecraft:eroded_badlands"
         ],
-        "key_item": "red_orb"
+        "key_item": "mythsandlegends:red_orb"
       }
     },
     {
@@ -42,7 +42,7 @@
           "#cobblemon:is_arid",
           "#cobblemon:is_thermal"
         ],
-        "key_item": "red_orb"
+        "key_item": "mythsandlegends:red_orb"
       }
     }
   ]

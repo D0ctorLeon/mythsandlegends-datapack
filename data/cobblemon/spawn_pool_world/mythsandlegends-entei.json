@@ -23,8 +23,14 @@
           "minecraft:windswept_hills",
           "minecraft:windswept_forest"
         ],
-        "key_item": "clear_bell",
-        "fire_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:fire_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -44,8 +50,14 @@
           "#cobblemon:is_thermal",
           "#cobblemon:is_badlands"
         ],
-        "key_item": "clear_bell",
-        "fire_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:fire_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

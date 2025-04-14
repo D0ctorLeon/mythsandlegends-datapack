@@ -19,7 +19,7 @@
           "minecraft:dark_forest",
           "minecraft:swamp"
         ],
-        "key_item": "marshadow_hood"
+        "key_item": "mythsandlegends:marshadow_hood"
       }
     },
     {
@@ -39,7 +39,7 @@
           "#cobblemon:is_dark",
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "marshadow_hood"
+        "key_item": "mythsandlegends:marshadow_hood"
       }
     }
   ]

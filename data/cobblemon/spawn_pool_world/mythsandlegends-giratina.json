@@ -19,7 +19,7 @@
           "minecraft:soul_sand_valley",
           "minecraft:the_end"
         ],
-        "key_item": "griseous_orb"
+        "key_item": "mythsandlegends:griseous_orb"
       }
     },
     {
@@ -39,7 +39,7 @@
           "#cobblemon:is_spooky",
           "#cobblemon:is_nether_wasteland"
         ],
-        "key_item": "griseous_orb"
+        "key_item": "mythsandlegends:griseous_orb"
       }
     }
   ]

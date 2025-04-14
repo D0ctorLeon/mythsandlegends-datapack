@@ -1,0 +1,18 @@
+{
+  "target": "cobblemon:meltan",
+  "evolutions": [
+    {
+      "id": "meltan_melmetal",
+      "variant": "level_up",
+      "result": "melmetal",
+      "consumeHeldItem": false,
+      "learnableMoves": [],
+      "requirements": [
+        {
+          "variant": "properties",
+          "target": "meltan meltan_iron_charge=999"
+        }
+      ]
+    }
+  ]
+}

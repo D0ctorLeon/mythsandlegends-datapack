@@ -24,8 +24,14 @@
           "minecraft:snowy_slopes",
           "minecraft:snowy_taiga"
         ],
-        "key_item": "tidal_bell",
-        "ice_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:ice_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -47,8 +53,14 @@
           "#cobblemon:is_glacial",
           "#cobblemon:is_frozen_ocean"
         ],
-        "key_item": "tidal_bell",
-        "ice_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:ice_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

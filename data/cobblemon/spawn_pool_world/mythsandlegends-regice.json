@@ -39,7 +39,7 @@
           "wythers:snowy_peaks",
           "wythers:snowy_tundra"
         ],
-        "key_item": "ice_tablet"
+        "key_item": "mythsandlegends:ice_tablet"
       }
     },
     {
@@ -64,7 +64,7 @@
           "#forge:is_cold/overworld",
           "wythers:berry_bog"
         ],
-        "key_item": "ice_tablet"
+        "key_item": "mythsandlegends:ice_tablet"
       }
     },
     {
@@ -103,7 +103,7 @@
           "wythers:snowy_peaks",
           "wythers:snowy_tundra"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     },
     {
@@ -128,7 +128,7 @@
           "#forge:is_cold/overworld",
           "wythers:berry_bog"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ]

@@ -20,7 +20,7 @@
           "minecraft:forest",
           "minecraft:meadow"
         ],
-        "key_item": "sapling_of_life"
+        "key_item": "mythsandlegends:sapling_of_life"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_magical",
           "#cobblemon:is_floral"
         ],
-        "key_item": "sapling_of_life"
+        "key_item": "mythsandlegends:sapling_of_life"
       }
     }
   ]

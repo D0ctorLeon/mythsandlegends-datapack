@@ -20,7 +20,7 @@
           "minecraft:taiga",
           "minecraft:windswept_forest"
         ],
-        "key_item": "rusted_shield"
+        "key_item": "mythsandlegends:rusted_shield"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_savanna",
           "#cobblemon:is_highlands"
         ],
-        "key_item": "rusted_shield"
+        "key_item": "mythsandlegends:rusted_shield"
       }
     }
   ]

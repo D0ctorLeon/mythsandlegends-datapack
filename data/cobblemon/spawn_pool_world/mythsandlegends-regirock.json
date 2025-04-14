@@ -37,7 +37,7 @@
           "wythers:sandy_jungle"
   
         ],
-        "key_item": "stone_tablet"
+        "key_item": "mythsandlegends:stone_tablet"
       }
     },
     {
@@ -62,7 +62,7 @@
           "terralith:white_mesa",
           "wythers:danakil_desert"
         ],
-        "key_item": "stone_tablet"
+        "key_item": "mythsandlegends:stone_tablet"
       }
     },
     {
@@ -87,7 +87,7 @@
           "terralith:white_mesa",
           "wythers:danakil_desert"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ]

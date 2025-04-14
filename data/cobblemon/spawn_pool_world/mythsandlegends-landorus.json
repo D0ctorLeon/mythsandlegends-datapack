@@ -19,7 +19,7 @@
           "minecraft:sunflower_plains",
           "minecraft:desert"
         ],
-        "key_item": "reveal_glass"
+        "key_item": "mythsandlegends:reveal_glass"
       }
     }
   ]

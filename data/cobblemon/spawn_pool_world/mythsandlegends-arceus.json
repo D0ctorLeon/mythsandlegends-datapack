@@ -22,7 +22,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "azure_flute"
+        "key_item": "mythsandlegends:azure_flute"
       }
     },
     {
@@ -52,7 +52,7 @@
           "wythers:snowy_thermal_taiga",
           "#cobblemon:is_end"
         ],
-        "key_item": "azure_flute"
+        "key_item": "mythsandlegends:azure_flute"
       }
     }
   ]

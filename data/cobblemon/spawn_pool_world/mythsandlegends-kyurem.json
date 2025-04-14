@@ -20,7 +20,7 @@
           "minecraft:snowy_slopes",
           "minecraft:snowy_taiga"
         ],
-        "key_item": "dna_splicer"
+        "key_item": "mythsandlegends:dna_splicer"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_glacial",
           "#cobblemon:is_snowy_forest"
         ],
-        "key_item": "dna_splicer"
+        "key_item": "mythsandlegends:dna_splicer"
       }
     }
   ]

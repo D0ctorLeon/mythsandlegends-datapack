@@ -28,7 +28,7 @@
           "minecraft:old_growth_spruce_taiga",
           "minecraft:swamp"
         ],
-        "key_item": "gs_ball"
+        "key_item": "mythsandlegends:gs_ball"
       }
     },
     {
@@ -50,7 +50,7 @@
           "minecraft:cherry_grove",
           "#cobblemon:is_spring"
         ],
-        "key_item": "gs_ball"
+        "key_item": "mythsandlegends:gs_ball"
       }
     }
   ]

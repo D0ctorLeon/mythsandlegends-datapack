@@ -21,7 +21,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "genesect_drive"
+        "key_item": "mythsandlegends:genesect_drive"
       }
     },
     {
@@ -46,7 +46,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "genesect_drive"
+        "key_item": "mythsandlegends:genesect_drive"
       }
     }
   ]

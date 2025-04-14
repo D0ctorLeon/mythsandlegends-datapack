@@ -20,7 +20,7 @@
           "minecraft:flower_forest",
           "minecraft:birch_forest"
         ],
-        "key_item": "eon_ticket"
+        "key_item": "mythsandlegends:eon_ticket"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_temperate",
           "#cobblemon:is_beach"
         ],
-        "key_item": "eon_ticket"
+        "key_item": "mythsandlegends:eon_ticket"
       }
     }
   ]

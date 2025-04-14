@@ -18,7 +18,7 @@
           "minecraft:basalt_deltas",
           "minecraft:crimson_forest"
         ],
-        "key_item": "magma_stone"
+        "key_item": "mythsandlegends:magma_stone"
       }
     }
   ]

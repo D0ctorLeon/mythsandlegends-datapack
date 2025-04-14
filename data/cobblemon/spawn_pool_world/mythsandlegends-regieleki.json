@@ -18,7 +18,7 @@
         "biomes": [
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "plasma_tablet"
+        "key_item": "mythsandlegends:plasma_tablet"
       }
     },
     {
@@ -36,7 +36,7 @@
         "biomes": [
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ]

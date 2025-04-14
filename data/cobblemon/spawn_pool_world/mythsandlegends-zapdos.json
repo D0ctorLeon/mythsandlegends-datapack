@@ -19,8 +19,14 @@
           "minecraft:plains",
           "minecraft:savanna"
         ],
-        "key_item": "tidal_bell",
-        "thunder_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:thunder_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -39,8 +45,14 @@
           "#cobblemon:is_sky",
           "#cobblemon:is_mountain"
         ],
-        "key_item": "tidal_bell",
-        "thunder_stone_requirement": "3"
+        "key_item": "mythsandlegends:tidal_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:thunder_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

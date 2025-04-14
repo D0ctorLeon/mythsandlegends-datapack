@@ -28,7 +28,7 @@
           "#cobblemon:is_floral",
           "#cobblemon:is_grassland"
         ],
-        "key_item": "oaks_letter"
+        "key_item": "mythsandlegends:oaks_letter"
       }
     },
     {
@@ -46,7 +46,7 @@
         "biomes": [
           "#cobblemon:is_lush"
         ],
-        "key_item": "oaks_letter"
+        "key_item": "mythsandlegends:oaks_letter"
       }
     }
   ]

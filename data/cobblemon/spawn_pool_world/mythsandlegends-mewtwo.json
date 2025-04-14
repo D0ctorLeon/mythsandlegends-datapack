@@ -20,7 +20,7 @@
           "minecraft:dark_forest",
           "minecraft:deep_dark"
         ],
-        "key_item": "dr_fujis_diary"
+        "key_item": "mythsandlegends:dr_fujis_diary"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_deep_dark",
           "#cobblemon:is_spooky"
         ],
-        "key_item": "dr_fujis_diary"
+        "key_item": "mythsandlegends:dr_fujis_diary"
       }
     }
   ]

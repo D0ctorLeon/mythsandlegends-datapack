@@ -19,7 +19,7 @@
           "#cobblemon:is_river",
           "#cobblemon:is_jungle"
         ],
-        "key_item": "prismatic_shell"
+        "key_item": "mythsandlegends:prismatic_shell"
       }
     },
     {
@@ -38,7 +38,7 @@
           "#cobblemon:is_river",
           "#cobblemon:is_jungle"
         ],
-        "key_item": "prismatic_shell"
+        "key_item": "mythsandlegends:prismatic_shell"
       }
     }
   ]

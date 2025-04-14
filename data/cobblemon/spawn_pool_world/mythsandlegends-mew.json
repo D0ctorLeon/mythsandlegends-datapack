@@ -20,7 +20,7 @@
           "minecraft:bamboo_jungle",
           "minecraft:jungle"
         ],
-        "key_item": "old_sea_map"
+        "key_item": "mythsandlegends:old_sea_map"
       }
     },
     {
@@ -40,7 +40,7 @@
           "#cobblemon:is_lush",
           "#cobblemon:is_bamboo"
         ],
-        "key_item": "old_sea_map"
+        "key_item": "mythsandlegends:old_sea_map"
       }
     }
   ]

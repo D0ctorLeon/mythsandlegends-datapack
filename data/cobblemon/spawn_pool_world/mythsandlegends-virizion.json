@@ -38,7 +38,7 @@
           "wythers:thermal_taiga_crags",
           "wythers:windswept_jungle"          
         ],
-        "key_item": "grassland_blade"
+        "key_item": "mythsandlegends:grassland_blade"
       }
     },
     {
@@ -64,7 +64,7 @@
           "wythers:tibesti_mountains"
           
         ],
-        "key_item": "grassland_blade"
+        "key_item": "mythsandlegends:grassland_blade"
       }
     }
   ]

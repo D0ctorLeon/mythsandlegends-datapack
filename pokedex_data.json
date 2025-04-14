@@ -302,5 +302,17 @@
   "zygarde": {
     "pokedex": 718,
     "generation": 6
-  }
+  },
+  "articuno": { "pokedex": 144, "generation": 1 },
+  "zapdos": { "pokedex": 145, "generation": 1 },
+  "moltres": { "pokedex": 146, "generation": 1 },
+  "raikou": { "pokedex": 243, "generation": 2 },
+  "entei": { "pokedex": 244, "generation": 2 },
+  "suicune": { "pokedex": 245, "generation": 2 },
+  "hooh": { "pokedex": 250, "generation": 2 },
+  "tapukoko": { "pokedex": 785, "generation": 7 },
+  "tapulele": { "pokedex": 786, "generation": 7 },
+  "tapubulu": { "pokedex": 787, "generation": 7 },
+  "tapufini": { "pokedex": 788, "generation": 7 },
+  "typenull": { "pokedex": 772, "generation": 7 }
 }

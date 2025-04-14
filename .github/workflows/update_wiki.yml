@@ -1,34 +1,45 @@
-name: update_wiki
+name: Update DokuWiki Spawns
 
 on:
   push:
+    branches:
+      - main # Or your default branch
     paths:
-      - 'data/cobblemon/spawn_pool_world/**' # Trigger on changes in this directory
-  workflow_dispatch: # Allow manual triggering
+      - 'data/cobblemon/spawn_pool_world/**.json' # Trigger on changes in spawn files
+      - 'pokedex_data.json' # Also trigger if pokedex data changes
+      - '.github/workflows/update_wiki.yml' # Trigger if workflow itself changes
+      - 'update_dokuwiki.py' # Trigger if script changes
+  workflow_dispatch: # Allow manual triggering from the Actions tab
 
 jobs:
-  update_wiki_job:
+  update-wiki:
     runs-on: ubuntu-latest
-    env:
-      DOKUWIKI_API_URL: ${{ secrets.DOKUWIKI_API_URL }}  # DokuWiki API URL from secrets
-      DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}        # DokuWiki username from secrets
-      DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }} # DokuWiki password from secrets
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # Or your preferred Python version
+          python-version: '3.x' # Use a recent Python 3 version
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install dokuwikixmlrpc python-dotenv # Add other dependencies if needed by your script
-          # If you have a requirements.txt file, you can use:
-          # pip install -r requirements.txt
+          pip install dokuwikixmlrpc requests # requests might be used by dokuwikixmlrpc
 
-      - name: Run update script
-        run: python update_wiki.py
+      - name: Run Wiki Update Script
+        env:
+          DOKUWIKI_URL: ${{ secrets.DOKUWIKI_URL }}
+          DOKUWIKI_USER: ${{ secrets.DOKUWIKI_USER }}
+          DOKUWIKI_PASSWORD: ${{ secrets.DOKUWIKI_PASSWORD }}
+          COMMIT_HASH: ${{ github.sha }} # Pass the commit hash
+        run: |
+          python update_dokuwiki.py \
+            --url "$DOKUWIKI_URL" \
+            --user "$DOKUWIKI_USER" \
+            --password "$DOKUWIKI_PASSWORD" \
+            --pokedex-file "pokedex_data.json" \
+            --spawn-dir "data/cobblemon/spawn_pool_world" \
+            --namespace "mythsandlegends:datapack:spawn_pool_world" \
+            --commit-hash "$COMMIT_HASH"

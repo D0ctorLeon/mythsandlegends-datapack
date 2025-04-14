@@ -22,7 +22,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "hoopa_ring"
+        "key_item": "mythsandlegends:hoopa_ring"
       }
     },
     {
@@ -44,7 +44,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "prism_bottle"
+        "key_item": "mythsandlegends:prism_bottle"
       }
     }
   ]

@@ -26,7 +26,7 @@
           "terralith:orchid_swampc",
           "wythers:billabong"
         ],
-        "key_item": "eternatus_core"
+        "key_item": "mythsandlegends:eternatus_core"
       }
     },
     {
@@ -48,7 +48,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "eternatus_core"
+        "key_item": "mythsandlegends:eternatus_core"
       }
     }
   ]

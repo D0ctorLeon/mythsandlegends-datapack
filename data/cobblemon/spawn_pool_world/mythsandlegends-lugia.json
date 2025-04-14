@@ -21,7 +21,7 @@
           "minecraft:deep_ocean",
           "minecraft:ocean"
         ],
-        "key_item": "tidal_bell"
+        "key_item": "mythsandlegends:tidal_bell"
       }
     },
     {
@@ -42,7 +42,7 @@
           "#cobblemon:is_ocean",
           "#cobblemon:is_cold_ocean"
         ],
-        "key_item": "tidal_bell"
+        "key_item": "mythsandlegends:tidal_bell"
       }
     },
     {
@@ -63,7 +63,7 @@
           "minecraft:deep_ocean",
           "minecraft:ocean"
         ],
-        "key_item": "silver_wing"
+        "key_item": "mythsandlegends:silver_wing"
       }
     },
     {
@@ -84,7 +84,7 @@
           "#cobblemon:is_ocean",
           "#cobblemon:is_cold_ocean"
         ],
-        "key_item": "silver_wing"
+        "key_item": "mythsandlegends:silver_wing"
       }
     }
   ]

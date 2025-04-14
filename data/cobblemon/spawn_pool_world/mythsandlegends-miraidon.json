@@ -19,7 +19,7 @@
           "minecraft:windswept_gravelly_hills",
           "minecraft:deep_dark"
         ],
-        "key_item": "violet_book"
+        "key_item": "mythsandlegends:violet_book"
       }
     },
     {
@@ -37,7 +37,7 @@
         "biomes": [
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "violet_book"
+        "key_item": "mythsandlegends:violet_book"
       }
     }
   ]

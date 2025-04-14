@@ -21,7 +21,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "antique_pokeball"
+        "key_item": "mythsandlegends:antique_pokeball"
       }
     },
     {
@@ -46,7 +46,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "antique_pokeball"
+        "key_item": "mythsandlegends:antique_pokeball"
       }
     },
     {
@@ -67,7 +67,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "soul_heart"
+        "key_item": "mythsandlegends:soul_heart"
       }
     },
     {
@@ -92,7 +92,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "soul_heart"
+        "key_item": "mythsandlegends:soul_heart"
       }
     }
   ]

@@ -18,7 +18,7 @@
         "biomes": [
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "necro_prism",
+        "key_item": "mythsandlegends:necro_prism",
         "shiny_stone_requirement": "3"
       }
     },
@@ -41,7 +41,7 @@
           "minecraft:end_midlands",
           "minecraft:small_end_islands"
         ],
-        "key_item": "necro_prism",
+        "key_item": "mythsandlegends:necro_prism",
         "shiny_stone_requirement": "3"
       }
     }

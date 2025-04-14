@@ -19,8 +19,14 @@
           "minecraft:frozen_river",
           "minecraft:river"
         ],
-        "key_item": "clear_bell",
-        "water_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:water_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     },
     {
@@ -39,8 +45,14 @@
           "#cobblemon:is_freshwater",
           "#cobblemon:is_cold_ocean"
         ],
-        "key_item": "clear_bell",
-        "water_stone_requirement": "3"
+        "key_item": "mythsandlegends:clear_bell",
+        "item_requirement": [
+          {
+            "id": "cobblemon:water_stone",
+            "count": 3,
+            "consume": true
+          }
+        ]
       }
     }
   ]

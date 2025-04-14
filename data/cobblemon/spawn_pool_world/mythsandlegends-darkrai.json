@@ -19,7 +19,7 @@
           "minecraft:dark_forest",
           "minecraft:swamp"
         ],
-        "key_item": "member_card"
+        "key_item": "mythsandlegends:member_card"
       }
     },
     {
@@ -39,7 +39,7 @@
           "#cobblemon:is_dark",
           "#cobblemon:is_deep_dark"
         ],
-        "key_item": "member_card"
+        "key_item": "mythsandlegends:member_card"
       }
     }
   ]

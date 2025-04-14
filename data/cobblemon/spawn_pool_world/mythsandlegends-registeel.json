@@ -22,7 +22,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "steel_tablet"
+        "key_item": "mythsandlegends:steel_tablet"
       }
     },
     {
@@ -43,7 +43,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "steel_tablet"
+        "key_item": "mythsandlegends:steel_tablet"
       }
     },
     {
@@ -64,7 +64,7 @@
         "neededNearbyBlocks": [
           "minecraft:iron_block"
         ],
-        "key_item": "ancient_tablet"
+        "key_item": "mythsandlegends:ancient_tablet"
       }
     }
   ]

@@ -18,7 +18,7 @@
           "#cobblemon:is_taiga",
           "#cobblemon:is_mountain"
         ],
-        "key_item": "iceroot_carrot"
+        "key_item": "mythsandlegends:iceroot_carrot"
       }
     },
     {
@@ -36,7 +36,7 @@
           "#cobblemon:is_taiga",
           "#cobblemon:is_mountain"
         ],
-        "key_item": "iceroot_carrot"
+        "key_item": "mythsandlegends:iceroot_carrot"
       }
     }
   ]

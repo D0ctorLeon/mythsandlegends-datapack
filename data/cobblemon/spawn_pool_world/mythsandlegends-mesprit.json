@@ -26,7 +26,7 @@
           "terralith:orchid_swamp",
           "wythers:billabong"
         ],
-        "key_item": "mesprit_plume"
+        "key_item": "mythsandlegends:mesprit_plume"
       }
     },
     {
@@ -48,7 +48,7 @@
           "wythers:tropical_forest_river",
           "#cobblemon:is_freshwater"
         ],
-        "key_item": "mesprit_plume"
+        "key_item": "mythsandlegends:mesprit_plume"
       }
     }
   ]

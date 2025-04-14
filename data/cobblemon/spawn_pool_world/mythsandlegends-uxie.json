@@ -26,7 +26,7 @@
           "terralith:orchid_swampc",
           "wythers:billabong"
         ],
-        "key_item": "uxie_claw"
+        "key_item": "mythsandlegends:uxie_claw"
       }
     },
     {
@@ -48,7 +48,7 @@
           "wythers:tropical_forest_river",
           "#cobblemon:is_freshwater"
         ],
-        "key_item": "uxie_claw"
+        "key_item": "mythsandlegends:uxie_claw"
       }
     }
   ]

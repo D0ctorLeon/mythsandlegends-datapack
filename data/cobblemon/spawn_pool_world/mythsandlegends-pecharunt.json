@@ -19,7 +19,7 @@
           "minecraft:dark_forest",
           "minecraft:swamp"
         ],
-        "key_item": "mythical_pecha_berry"
+        "key_item": "mythsandlegends:mythical_pecha_berry"
       }
     },
     {
@@ -39,7 +39,7 @@
           "minecraft:swamp_hut",
           "minecraft:pillager_outpost"
         ],
-        "key_item": "mythical_pecha_berry"
+        "key_item": "mythsandlegends:mythical_pecha_berry"
       }
     }
   ]

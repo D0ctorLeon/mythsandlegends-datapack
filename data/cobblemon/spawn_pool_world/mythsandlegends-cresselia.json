@@ -21,7 +21,7 @@
         "moonPhase": 1,
         "canSeeSky": true,
         "timeRange": "night",
-        "key_item": "lunar_feather"
+        "key_item": "mythsandlegends:lunar_feather"
       }
     }
   ]
