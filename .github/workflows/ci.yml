@@ -41,7 +41,7 @@ jobs:
 
       # Uploads an artifact with the version in the name
       - name: Compile and upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: MythsandLegends-Datapack-v${{ env.version }}
           path: |
